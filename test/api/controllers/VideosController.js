@@ -48,7 +48,7 @@ module.exports = {
 
   // e.g., `/videos/series/The Simpsonss`
   series: function (req, res) {
-    Video.find({title: req.params.id}).done(function (err, videos) {
+    Video.find({title: req.params.id}).sort('episode ASC').sort('season ASC').done(function (err, videos) {
       if (err) return res.send(err, 500);
 
       res.json(videos);
