@@ -1,4 +1,7 @@
-muv
+μv (aka muv)
 ===
 
-μv: (mew-vee) Netflix, for your home.
+μv: (pronounced: mew-vee, somewhat like "movie")
+
+Netflix, for your home.
+WIP
