@@ -1,0 +1,21 @@
+<% if (videos.length) { %>
+  <ul>
+  <% _.each(videos, function (video) { %>
+	  <li>
+	  	<% if (video.title) { %>
+	  		<%= video.title %>
+	  	<% } %>
+	  	<% if (video.season && video.episode) { %>
+	  		S<%= video.season %>E<%= video.episode %>
+	  	<% } else { %>
+				<%= video.raw_file_path %>
+	  	<% } %>
+
+
+	  	<a href="/videos/watch/<%= video.id %>">Watch</a>
+	  </li>
+  <% }); %>
+  </ul>
+<% } else { %>
+  <div>No videos found.</div>
+<% } %>
