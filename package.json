@@ -1,0 +1,26 @@
+{
+  "name": "muv",
+  "version": "0.0.0",
+  "description": "Netflix, but for your home",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "muv",
+    "netflix",
+    "homeflix",
+    "streaming",
+    "media",
+    "media",
+    "server",
+    "home",
+    "media",
+    "server"
+  ],
+  "author": "Anthony Cameron (qq99)",
+  "license": "GPLv3 and MIT"
+}
