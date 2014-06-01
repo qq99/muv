@@ -1,6 +1,25 @@
 <div id="watch">
 	<div class="meta">
-		<h1 class="title"><%= video.title %></h1>
+		<div class="title-information">
+			<h1 class="title">
+				<% if (video.season) { %>
+					<a href="/videos/series/<%= video.title %>">
+						<%= video.title %>
+					</a>
+				<% } else { %> 
+					<%= video.title %>
+				<% } %>
+			</h1>
+			<% if (video.season && video.episode) { %>
+			<h2 class="season-episode">S<%= video.season %> E<%= video.episode %></h2>
+			<% } %>
+		</div>
+		<div class="description">
+			<p>
+				Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+			</p>
+		</div>
+
 	</div>
 	<div class="video-container">
 		<video src="/videos/stream/<%= video.id %>" autoplay controls muted></video>
