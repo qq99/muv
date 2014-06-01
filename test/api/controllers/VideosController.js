@@ -20,7 +20,9 @@ var fs = require("fs"),
     recursive = require("recursive-readdir"),
     process = require("child_process"),
     async = require("async"),
-    path = require("path");
+    path = require("path"),
+    parseXML = require('xml2js').parseString,
+    request = require('request');
 
 var isNumber = function (n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
@@ -46,7 +48,7 @@ module.exports = {
   },
 
 
-  // e.g., `/videos/series/The Simpsonss`
+  // e.g., `/videos/series/The Simpsons`
   series: function (req, res) {
     Video.find({title: req.params.id}).sort('episode ASC').sort('season ASC').done(function (err, videos) {
       if (err) return res.send(err, 500);
@@ -55,14 +57,28 @@ module.exports = {
     });
   },
 
-  stream: function (req, res) {
+  getMetadata: function (req, res) {
 
-    console.log(req);
+    // e.g., http://thetvdb.com/api/GetSeries.php?seriesname=True%20Detective
+    Video.findOne({id: req.params.id}).done(function (err, video) {
+      if (err) return res.send(err, 500);
+
+      request("http://thetvdb.com/api/GetSeries.php?seriesname=" + video.title, function (err, response, body) {
+        if (err) return res.send(err, 500);
+
+        parseXML(body, {trim: true}, function(err, result) {
+          if (err) return res.send(err, 500);
+          res.json(result.Data.Series);
+        });
+      });
+    });
+  },
+
+  stream: function (req, res) {
 
     Video.findOne(req.params.id).done(function (err, video) {
       if (err) return res.send(err, 500);
       var range = typeof req.headers.range === "string" ? req.headers.range : undefined;
-      console.log("range is: ", range);
       var stat = fs.statSync(video.raw_file_path);
       if (!stat.isFile()) {
         res.send("Not a file", 500);

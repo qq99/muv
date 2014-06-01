@@ -13,7 +13,8 @@
     "sails-redis": "~0.9.3",
     "async": "~0.8.0",
     "recursive-readdir": "~1.1.0",
-    "lodash": "~2.4.1"
+    "lodash": "~2.4.1",
+    "xml2js": "~0.4.4"
   },
   "scripts": {
     "start": "node app.js",
