@@ -6,11 +6,20 @@
  * @docs		:: http://sailsjs.org/#!documentation/models
  */
 
-var _ = require("lodash");
+var _ = require('lodash'),
+		asnyc = require('async'),
+    parseXML = require('xml2js').parseString,
+		request = require('request');
 
 var titleize = function(str) {
 	if (str == null) return '';
 	return String(str).replace(/(?:^|\s)\S/g, function(c){ return c.toUpperCase(); });
+};
+
+var TVDB_KEY = process.env.TVDB_KEY;
+
+var splitOnPipe = function(str) {
+	return _.uniq(_.compact(str.split("|")));
 };
 
 var guessit = function (raw_file_path, cb) {
@@ -58,6 +67,8 @@ module.exports = {
   		required: true,
   		unique: true
   	},
+  	series_metadata: 'json',
+  	episode_metadata: 'json',
   	valid_extensions: ['mp4', 'avi', 'mkv']
   },
 
@@ -65,5 +76,62 @@ module.exports = {
   	guessedValues = guessit(values.raw_file_path);
   	values = _.merge(values, guessedValues);
   	next();
+  },
+
+  updateMetadata: function (video, callback) {
+		request("http://thetvdb.com/api/GetSeries.php?seriesname=" + video.title, function (err, response, body) {
+			if (err) { callback("Unable to contact thetvdb", null); return; }
+
+			parseXML(body, {trim: true}, function(err, result) {
+			  if (err) { callback("Unable to parse XML result", null); return; }
+	  		
+	  		if (result.Data && result.Data.Series) {
+					request("http://thetvdb.com/api/"+ TVDB_KEY +"/series/"+ result.Data.Series[0].seriesid[0] +"/all/", function (err, response, body) {
+						if (err) { callback("Unable to fetch detailed series data"); return; }
+						parseXML(body, {trim: true, explicitArray: false}, function(err, result) {
+							if (err) { callback("Unable to parse XML result", null); return; }
+
+							var series = result.Data.Series;
+							// split actors into array:
+							if (series.Actors) {
+								series.Actors = splitOnPipe(series.Actors);
+							}
+							if (series.Genre) {
+								series.Genre = splitOnPipe(series.Genre);
+							}
+
+							series_meta = {
+								series_metadata: series
+							};
+							Video.update({title: video.title}, series_meta, function (err, updated) {
+								if (err) { callback("Unable to persist series metadata"); return; }
+
+								// update each individual episode now
+								async.map(result.Data.Episode, function (episode, cb) {
+									var episode_meta = {
+										episode_metadata: episode
+									};
+
+									Video.update({title: video.title, season: episode.SeasonNumber, episode: episode.EpisodeNumber}, episode_meta, function (err, updated) {
+										if (err) { callback("Unable to persist episode metadata"); return; }
+										cb(null, updated);
+									});
+								}, function (err, results) {
+									if (err) { callback("Unable to persist all episode metadata"); return; }
+									callback(null, results);
+								});
+
+							});
+						});							
+					});
+	  		} else {
+	  			callback("No results", null); return;
+	  		}
+			});
+		});
+
+  	// Video.update({title: video.title}, {}, function (err, updated) {
+
+  	// });
   }
 };

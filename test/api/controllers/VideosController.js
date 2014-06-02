@@ -20,9 +20,7 @@ var fs = require("fs"),
     recursive = require("recursive-readdir"),
     process = require("child_process"),
     async = require("async"),
-    path = require("path"),
-    parseXML = require('xml2js').parseString,
-    request = require('request');
+    path = require("path");
 
 var isNumber = function (n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
@@ -53,7 +51,10 @@ module.exports = {
     Video.find({title: req.params.id}).sort('episode ASC').sort('season ASC').done(function (err, videos) {
       if (err) return res.send(err, 500);
 
-      res.json(videos);
+      res.view({
+        series: videos[0].series_metadata,
+        videos: videos
+      });
     });
   },
 
@@ -63,13 +64,9 @@ module.exports = {
     Video.findOne({id: req.params.id}).done(function (err, video) {
       if (err) return res.send(err, 500);
 
-      request("http://thetvdb.com/api/GetSeries.php?seriesname=" + video.title, function (err, response, body) {
+      Video.updateMetadata(video, function (err, updatedRecords) {
         if (err) return res.send(err, 500);
-
-        parseXML(body, {trim: true}, function(err, result) {
-          if (err) return res.send(err, 500);
-          res.json(result.Data.Series);
-        });
+        res.json(updatedRecords);
       });
     });
   },
