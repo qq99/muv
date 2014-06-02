@@ -10,7 +10,7 @@
 					<%= video.title %>
 				<% } %>
 			</h1>
-			<% if (video.episode_metadata.EpisodeName) { %>
+			<% if (video.episode_metadata && video.episode_metadata.EpisodeName) { %>
 				<h3><%= video.episode_metadata.EpisodeName %></h3>
 			<% } %>
 			<% if (video.season && video.episode) { %>
