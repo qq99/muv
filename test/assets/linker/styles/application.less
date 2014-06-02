@@ -116,16 +116,30 @@ video {
 		width: 60%;
 		left: 40%;
 		padding: 3em;
+		a, a:visited {
+			text-decoration: none;
+			display: block;
+			width: 100%;
+			margin-bottom: 2em;
+		}
+		a:focus {
+			background: black;
+			.video-tile {
+				outline: 5px solid rgb(148, 221, 255);
+			}
+		}
 	}
 	.video-tile {
-		margin-bottom: 2em;
 		padding: 2em;
-		background: rgba(0,0,0,0.9);
+		background: rgba(0,0,0,0.75);
 		color: white;
 		font-size: 1.1em;
+		a:active {
+
+		}
 	}
-	.video-link {
+	.video-thumbnail {
 		float: left;
-		margin: 0 2em 2em 0;
+		margin-right: 2em;
 	}
 }

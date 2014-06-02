@@ -5,19 +5,16 @@
 	</div>
 	<div class="video-list">
 		<% _.each(videos, function (video) { %>
+			<a class="video" href="/videos/watch/<%= video.id %>" class="video-link">
 				<div class="video-tile">
 					<% if (video.episode_metadata) { %>
-						<a href="/videos/watch/<%= video.id %>" class="video-link">
-							<img src="http://thetvdb.com/banners/<%= video.episode_metadata.filename %>" alt="">
-						</a>
-						<p class="video-overview">
-							<h3><%= video.episode_metadata.EpisodeName %></h3>
-							<%= video.episode_metadata.Overview %>
-						</p>
+						<img class="video-thumbnail" src="http://thetvdb.com/banners/<%= video.episode_metadata.filename %>" alt="">
+						<h3><%= video.episode_metadata.EpisodeName %> - S<%= video.season %>E<%= video.episode %></h3>
+						<p class="video-overview"><%= video.episode_metadata.Overview %></p>
 					<% } %>
-					S<%= video.season %>E<%= video.episode %>
 					<div class="clearfix"></div>
 				</div>
+			</a>
 		<% }); %>
 	</div>
 </div>
