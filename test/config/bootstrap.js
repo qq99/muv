@@ -18,7 +18,9 @@ module.exports.bootstrap = function (cb) {
 
   watch('/wat', function(filename) {
   	fs.exists(filename, function(exists) {
-  	  Video.destroy({raw_file_path: filename});
+  	  if (!exists) {
+  	  	Video.destroy({raw_file_path: filename});	
+  	  }
   	});
   	console.log(filename, 'changed');
   });
