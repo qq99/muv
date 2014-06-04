@@ -2,7 +2,7 @@
 	<div class="panel">
 		<% if (series.length) { %>
 		<div class="poster-container">
-		  <% _.each(series, function (serie) { %>
+			<% _.each(series, function (serie) { %>
 			<div class="poster">
 				<% if (serie.series_metadata && serie.series_metadata.poster) { %>
 					<a class="poster-link" href="/series/view/<%= serie.title %>">
@@ -10,14 +10,20 @@
 					</a>
 				<% } %>
 				<div class="poster-buttons">
-	  			<a class="poster-button btn-primary" href="/series/view/<%= serie.title %>">Watch</a>
-		  	</div>
+					<a href="#" class="poster-button">
+						<i class="fa fa-heart"></i>
+					</a>
+					<a href="#" class="poster-button">
+						<i class="fa fa-info-circle"></i>
+					</a>
+					<div class="clearfix"></div>
+				</div>
 			</div>
-		  <% }); %>
+			<% }); %>
+			<div class="clearfix"></div>
 		</div>
 		<% } else { %>
-		  <div>No series found.</div>
+			<div>No series found.</div>
 		<% } %>
-		<div class="clearfix"></div>
 	</div>
 </div>

@@ -165,18 +165,29 @@ video {
 		img {
 			width: 100%;
 			height: auto;
+			opacity: 0.8;
+		}
+	}
+	.poster-link:focus, .poster-link:hover {
+		img {
+			opacity: 1;
 		}
 	}
 	.poster-buttons {
 		width: 100%;
 		background: black;
-		background: rgba(0,0,0,0.9);
+		background: rgba(50,50,50,0.5);
+		border: 1px solid #333;
+		border-top: 0;
 	}
 	.poster-button {
-		display: inline-block;
+		display: block;
+		float: left;
 		padding: 0.5em 1em;
-		color: white;
+		color: #ddd;
+		text-shadow: 1px 1px 0px black;
 		text-decoration: none;
+		border-right: 1px solid #333;
 		&.btn-primary {
 			background: darken(green, 10%);
 			&:hover, &:focus {
