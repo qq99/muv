@@ -8,9 +8,20 @@
  * http://sailsjs.org/#documentation
  */
 
+var fs = require('fs'),
+	watch = require('node-watch');
+
 module.exports.bootstrap = function (cb) {
 
   // It's very important to trigger this callack method when you are finished 
   // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
+
+  watch('/wat', function(filename) {
+  	fs.exists(filename, function(exists) {
+  	  Video.destroy({raw_file_path: filename});
+  	});
+  	console.log(filename, 'changed');
+  });
+
   cb();
 };

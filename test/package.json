@@ -14,7 +14,9 @@
     "async": "~0.8.0",
     "recursive-readdir": "~1.1.0",
     "lodash": "~2.4.1",
-    "xml2js": "~0.4.4"
+    "xml2js": "~0.4.4",
+    "node-watch": "~0.3.4",
+    "sails-memory": "~0.9.1"
   },
   "scripts": {
     "start": "node app.js",

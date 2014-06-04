@@ -64,7 +64,7 @@ module.exports = {
     Video.findOne({id: req.params.id}).done(function (err, video) {
       if (err) return res.send(err, 500);
 
-      Video.updateMetadata(video, function (err, updatedRecords) {
+      Video.updateMetadata(video.title, function (err, updatedRecords) {
         if (err) return res.send(err, 500);
         res.json(updatedRecords);
       });
@@ -151,7 +151,8 @@ module.exports = {
     // });
 
 
-    var p = path.resolve('/TV')
+    var p = path.resolve('/TV');
+    var titles = [];
     recursive(p, function (err, files) {
 
       files = _.remove(files, function(elem) {
@@ -162,18 +163,26 @@ module.exports = {
 
       var testFiles = files;//.slice(0,20);
 
-      async.mapLimit(testFiles, 10, function (fileName, cb) {
-        console.log("Processing ", fileName);
-        Video.create({
-          raw_file_path: fileName
-        }).done(function(err, video) {
-          if (err) throw err;
-          console.log("Processed ", fileName);
-          cb(null, video);
+      async.mapLimit(testFiles, 500, function (fileName, cb) {
+        Video.findOrCreate(fileName, function(err, result) {
+          if (err) res.send(err, 500);
+          titles.push(result.title);
+          cb(null, result);
         });
       }, function (err, results) {
-        if (err) throw err;
-        res.json(results);
+        if (err) res.send(err, 500);
+
+
+        async.mapLimit(_.uniq(_.compact(titles)), 5, function (video_title, cb) {
+          Video.updateMetadata(video_title, function(err, results) {
+            if (err) res.send(err, 500);
+            cb(null, results);
+          });
+        }, function (err, results) {
+          if (err) res.send(err, 500);
+
+          res.json(results);
+        });
       });
 
     });

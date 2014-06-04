@@ -16,7 +16,7 @@ var titleize = function(str) {
 	return String(str).replace(/(?:^|\s)\S/g, function(c){ return c.toUpperCase(); });
 };
 
-var TVDB_KEY = process.env.TVDB_KEY;
+var TVDB_KEY = process.env.TVDB_KEY || "C0BAA9786923CE73";
 
 var splitOnPipe = function(str) {
 	return _.uniq(_.compact(str.split("|")));
@@ -55,7 +55,6 @@ var guessit = function (raw_file_path, cb) {
 };
 
 module.exports = {
-  adapter: ['redis'],
 
   attributes: {
   	title: 'string',
@@ -78,8 +77,28 @@ module.exports = {
   	next();
   },
 
-  updateMetadata: function (video, callback) {
-		request("http://thetvdb.com/api/GetSeries.php?seriesname=" + video.title, function (err, response, body) {
+  findOrCreate: function (raw_file_path, callback) {
+		Video.findOne({
+    	raw_file_path: raw_file_path
+    }).done(function(err, result) {
+      if (err) { callback(err); }
+
+      if (!result) {
+        Video.create({
+          raw_file_path: raw_file_path
+        }).done(function(err, video) {
+          if (err) { callback(err); }
+          callback(null, video);
+        });
+      } else {
+        callback(null, result);
+      }
+    });
+  },
+
+  // updates metadata on all Videos that share the same title
+  updateMetadata: function (video_title, callback) {
+		request("http://thetvdb.com/api/GetSeries.php?seriesname=" + video_title, function (err, response, body) {
 			if (err) { callback("Unable to contact thetvdb", null); return; }
 
 			parseXML(body, {trim: true}, function(err, result) {
@@ -103,7 +122,7 @@ module.exports = {
 							series_meta = {
 								series_metadata: series
 							};
-							Video.update({title: video.title}, series_meta, function (err, updated) {
+							Video.update({title: video_title}, series_meta, function (err, updated) {
 								if (err) { callback("Unable to persist series metadata"); return; }
 
 								// update each individual episode now
@@ -112,7 +131,7 @@ module.exports = {
 										episode_metadata: episode
 									};
 
-									Video.update({title: video.title, season: episode.SeasonNumber, episode: episode.EpisodeNumber}, episode_meta, function (err, updated) {
+									Video.update({title: video_title, season: episode.SeasonNumber, episode: episode.EpisodeNumber}, episode_meta, function (err, updated) {
 										if (err) { callback("Unable to persist episode metadata"); return; }
 										cb(null, updated);
 									});
@@ -129,9 +148,5 @@ module.exports = {
 	  		}
 			});
 		});
-
-  	// Video.update({title: video.title}, {}, function (err, updated) {
-
-  	// });
   }
 };
