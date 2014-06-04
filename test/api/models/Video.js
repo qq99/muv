@@ -16,7 +16,7 @@ var titleize = function(str) {
 	return String(str).replace(/(?:^|\s)\S/g, function(c){ return c.toUpperCase(); });
 };
 
-var TVDB_KEY = process.env.TVDB_KEY || "C0BAA9786923CE73";
+var TVDB_KEY = "C0BAA9786923CE73";
 
 var splitOnPipe = function(str) {
 	return _.uniq(_.compact(str.split("|")));
@@ -98,17 +98,19 @@ module.exports = {
 
   // updates metadata on all Videos that share the same title
   updateMetadata: function (video_title, callback) {
+  	console.log("Requesting: ", "http://thetvdb.com/api/GetSeries.php?seriesname=" + video_title)
 		request("http://thetvdb.com/api/GetSeries.php?seriesname=" + video_title, function (err, response, body) {
 			if (err) { callback("Unable to contact thetvdb", null); return; }
 
 			parseXML(body, {trim: true}, function(err, result) {
-			  if (err) { callback("Unable to parse XML result", null); return; }
+			  if (err) { callback("Unable to parse XML result: " + err, null); return; }
 	  		
 	  		if (result.Data && result.Data.Series) {
+	  			console.log("Requesting: ", "http://thetvdb.com/api/"+ TVDB_KEY +"/series/"+ result.Data.Series[0].seriesid[0] +"/all/")
 					request("http://thetvdb.com/api/"+ TVDB_KEY +"/series/"+ result.Data.Series[0].seriesid[0] +"/all/", function (err, response, body) {
 						if (err) { callback("Unable to fetch detailed series data"); return; }
 						parseXML(body, {trim: true, explicitArray: false}, function(err, result) {
-							if (err) { callback("Unable to parse XML result", null); return; }
+							if (err) { callback("Unable to parse XML result: " + err, null); return; }
 
 							var series = result.Data.Series;
 							// split actors into array:
@@ -122,6 +124,13 @@ module.exports = {
 							series_meta = {
 								series_metadata: series
 							};
+							Series.findOrCreate(video_title, {
+								title: video_title,
+								series_metadata: series
+							}, function(err, result) {
+								if (err) throw err;
+							});
+
 							Video.update({title: video_title}, series_meta, function (err, updated) {
 								if (err) { callback("Unable to persist series metadata"); return; }
 

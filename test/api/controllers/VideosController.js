@@ -45,19 +45,6 @@ module.exports = {
     });
   },
 
-
-  // e.g., `/videos/series/The Simpsons`
-  series: function (req, res) {
-    Video.find({title: req.params.id}).sort('episode ASC').sort('season ASC').done(function (err, videos) {
-      if (err) return res.send(err, 500);
-
-      res.view({
-        series: videos[0].series_metadata,
-        videos: videos
-      });
-    });
-  },
-
   getMetadata: function (req, res) {
 
     // e.g., http://thetvdb.com/api/GetSeries.php?seriesname=True%20Detective
@@ -171,7 +158,6 @@ module.exports = {
         });
       }, function (err, results) {
         if (err) res.send(err, 500);
-
 
         async.mapLimit(_.uniq(_.compact(titles)), 5, function (video_title, cb) {
           Video.updateMetadata(video_title, function(err, results) {

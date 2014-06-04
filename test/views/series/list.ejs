@@ -1,0 +1,22 @@
+<% if (series.length) { %>
+  <ul>
+  <% _.each(series, function (serie) { %>
+	  <li>
+	  	<% if (serie.title) { %>
+	  		<%= serie.title %>
+	  	<% } else { %>
+			<%= serie.raw_file_path %>
+	  	<% } %>
+
+	  	<p>
+	  		<%= serie.series_metadata.Genre %>
+	  	</p>
+
+		<img class="video-thumbnail" src="http://thetvdb.com/banners/<%= serie.series_metadata.poster %>" alt="">
+	  	<a href="/series/view/<%= serie.title %>">Watch</a>
+	  </li>
+  <% }); %>
+  </ul>
+<% } else { %>
+  <div>No series found.</div>
+<% } %>
