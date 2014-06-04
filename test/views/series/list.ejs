@@ -1,22 +1,23 @@
-<% if (series.length) { %>
-  <ul>
-  <% _.each(series, function (serie) { %>
-	  <li>
-	  	<% if (serie.title) { %>
-	  		<%= serie.title %>
-	  	<% } else { %>
-			<%= serie.raw_file_path %>
-	  	<% } %>
-
-	  	<p>
-	  		<%= serie.series_metadata.Genre %>
-	  	</p>
-
-		<img class="video-thumbnail" src="http://thetvdb.com/banners/<%= serie.series_metadata.poster %>" alt="">
-	  	<a href="/series/view/<%= serie.title %>">Watch</a>
-	  </li>
-  <% }); %>
-  </ul>
-<% } else { %>
-  <div>No series found.</div>
-<% } %>
+<div id="all_series">
+	<div class="panel">
+		<% if (series.length) { %>
+		<div class="poster-container">
+		  <% _.each(series, function (serie) { %>
+			<div class="poster">
+				<% if (serie.series_metadata && serie.series_metadata.poster) { %>
+					<a class="poster-link" href="/series/view/<%= serie.title %>">
+						<img class="video-thumbnail" src="http://thetvdb.com/banners/<%= serie.series_metadata.poster %>" alt="">
+					</a>
+				<% } %>
+				<div class="poster-buttons">
+	  			<a class="poster-button btn-primary" href="/series/view/<%= serie.title %>">Watch</a>
+		  	</div>
+			</div>
+		  <% }); %>
+		</div>
+		<% } else { %>
+		  <div>No series found.</div>
+		<% } %>
+		<div class="clearfix"></div>
+	</div>
+</div>
