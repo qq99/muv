@@ -6,6 +6,15 @@
  * @docs		:: http://sailsjs.org/#!documentation/models
  */
 
+
+ // sloppy notes:
+ // grabbing duration using tcprobe:
+ // tcprobe -i /media/sf_TV/American.Dad.S08E01.HDTV.x264-LOL.mp4 | grep -Eo 'duration=[0-9:.]*' > foo.txt
+ // => "duration=0:21:38.088"
+ // grabbing screenshots using libav-tools avconv:
+ // ss can be duration format or number of seconds
+ // avconv -ss 8000 -i /media/sf_TV/American.Dad.S08E01.HDTV.x264-LOL.mp4 -qscale 1 -vsync 1 -r 25 ~/foo.jpg
+
 var _ = require('lodash'),
 		asnyc = require('async'),
     parseXML = require('xml2js').parseString,

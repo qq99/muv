@@ -111,6 +111,9 @@ video {
 		.series-name {
 			font-size: 3em;
 		}
+		h2 {
+			font-weight: 300;
+		}
 	}
 	.video-list {
 		overflow-y: scroll;
@@ -158,7 +161,9 @@ video {
 	}
 	.poster-link, .poster img { display: block; }
 	.poster {
-		padding: 1em;
+		position: relative;
+		z-index: 2;
+		overflow: hidden;
 		float: left;
 		width: 20em;
 		color: white;
@@ -174,9 +179,10 @@ video {
 		}
 	}
 	.poster-buttons {
+		position: absolute;
+		bottom: 0;
+		z-index: 1;
 		width: 100%;
-		background: black;
-		background: rgba(50,50,50,0.5);
 		border: 1px solid #333;
 		border-top: 0;
 	}
@@ -185,6 +191,8 @@ video {
 		float: left;
 		padding: 0.5em 1em;
 		color: #ddd;
+		background-color: rgba(50, 50, 50, 0.5);
+		background: linear-gradient(to bottom, rgba(30,30,30,0.4) 0%,rgba(30,30,30,0.85) 100%);
 		text-shadow: 1px 1px 0px black;
 		text-decoration: none;
 		border-right: 1px solid #333;
