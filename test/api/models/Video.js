@@ -11,14 +11,28 @@
  // grabbing duration using tcprobe:
  // tcprobe -i /media/sf_TV/American.Dad.S08E01.HDTV.x264-LOL.mp4 | grep -Eo 'duration=[0-9:.]*' > foo.txt
  // => "duration=0:21:38.088"
+ // avprobe /media/sf_TV/American.Dad.S09E09.HDTV.x264-LOL.mp4 2>&1 | grep -Eo 'Duration: [0-9:.]*' | cut -c 11-
+ // => "00:20:59.71"
  // grabbing screenshots using libav-tools avconv:
  // ss can be duration format or number of seconds
  // avconv -ss 8000 -i /media/sf_TV/American.Dad.S08E01.HDTV.x264-LOL.mp4 -qscale 1 -vsync 1 -r 25 ~/foo.jpg
 
 var _ = require('lodash'),
 		asnyc = require('async'),
+		exec = require('child_process').exec,
     parseXML = require('xml2js').parseString,
 		request = require('request');
+
+var grab_duration_string = function(raw_file_path, cb) {
+	var command = "avprobe " + raw_file_path + " 2>&1 | grep -Eo 'Duration: [0-9:.]*' | cut -c 11-";
+	console.log("Running", command);
+	var avprobe = exec(command, function (err, stdout, stderr) {
+		if (err) { cb("Error grabbing duration", null); }
+		else {
+			cb(null, stdout);
+		}
+	});
+};
 
 var titleize = function(str) {
 	if (str == null) return '';
@@ -31,7 +45,7 @@ var splitOnPipe = function(str) {
 	return _.uniq(_.compact(str.split("|")));
 };
 
-var guessit = function (raw_file_path, cb) {
+var guessit = function (raw_file_path) {
 
 	var scene = /([\w\._\s]*)S(\d+)[\s-_\.]?E(\d+)/i; // e.,g "Adventure.Time.S05E44.HDTV.x264-QCF.mp4"
 	var re = /([\w\._\s]*)(?:.*)(\d+)x(?:.*)(\d+)/i; // e.,g "Adventure Time - 5x09 - All Your Fault.mkv"
@@ -70,6 +84,7 @@ module.exports = {
   	type: 'string',
   	episode: 'integer',
   	season: 'integer',
+  	duration: 'json',
   	raw_file_path: {
   		type: 'string',
   		required: true,
@@ -82,8 +97,25 @@ module.exports = {
 
   beforeCreate: function(values, next) {
   	guessedValues = guessit(values.raw_file_path);
-  	values = _.merge(values, guessedValues);
-  	next();
+  	_.merge(values, guessedValues);
+  	Video.updateDuration(values, function(valuesWithDuration) {
+	  	next();
+  	});
+  },
+
+  updateDuration: function (values, cb) {
+  	grab_duration_string(values.raw_file_path, function(err, duration) {
+  		var split;
+  		if (duration) { split = duration.split(":"); }
+  		if (split && split.length === 3) {
+  			values.duration = {
+  				hours: Number(split[0]),
+  				minutes: Number(split[1]),
+  				seconds: Number(split[2])
+  			}
+  		}
+  		cb(values);
+  	});
   },
 
   findOrCreate: function (raw_file_path, callback) {
@@ -103,6 +135,14 @@ module.exports = {
         callback(null, result);
       }
     });
+  },
+
+  leftPad: function (number, targetLength) {
+    var output = parseInt(number, 10) + '';
+    while (output.length < targetLength) {
+        output = '0' + output;
+    }
+    return output;
   },
 
   // updates metadata on all Videos that share the same title
