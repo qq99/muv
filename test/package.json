@@ -16,7 +16,8 @@
     "lodash": "~2.4.1",
     "xml2js": "~0.4.4",
     "node-watch": "~0.3.4",
-    "sails-memory": "~0.9.1"
+    "sails-memory": "~0.9.1",
+    "uuid": "~1.4.1"
   },
   "scripts": {
     "start": "node app.js",

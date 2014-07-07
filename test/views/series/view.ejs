@@ -1,5 +1,8 @@
 <div id="series" style="background:url(http://thetvdb.com/banners/<%= series.fanart %>); background-size: cover;">
 	<div class="series-information">
+		<a href="/series/list" class="back">
+			<i class="fa fa-chevron-left"></i>
+		</a>
 		<h1 class="series-name"><%= series.SeriesName %></h1>
 		<h2><%= series.Overview %></h2>
 	</div>
@@ -10,9 +13,14 @@
 					<% if (video.episode_metadata) { %>
 						<div class="thumbnails">
 							<img class="video-thumbnail" src="http://thetvdb.com/banners/<%= video.episode_metadata.filename %>" alt="">
+							<% _.each(video.thumbnails, function (thumb) { %>
+								<img class="video-thumbnail hidden" src="/generated/<%= thumb %>" alt="">
+							<% }); %>
 							<% if (video.duration) { %>
 								<div class="duration">
-									<span class="hours"><%= Video.leftPad(video.duration.hours, 2) %></span>:<span class="minutes"><%= Video.leftPad(video.duration.minutes, 2) %></span>:<span class="seconds"><%= Video.leftPad(video.duration.seconds, 2) %></span>
+									<% if (video.duration.hours > 0) { %>
+									<span class="hours"><%= Video.leftPad(video.duration.hours, 2) %>:</span>
+									<% } %><span class="minutes"><%= Video.leftPad(video.duration.minutes, 2) %></span>:<span class="seconds"><%= Video.leftPad(video.duration.seconds, 2) %></span>
 								</div>
 							<% } %>
 						</div>

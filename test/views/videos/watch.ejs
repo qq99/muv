@@ -11,10 +11,12 @@
 				<% } %>
 			</h1>
 			<% if (video.episode_metadata && video.episode_metadata.EpisodeName) { %>
-				<h3><%= video.episode_metadata.EpisodeName %></h3>
-			<% } %>
-			<% if (video.season && video.episode) { %>
-				<h2 class="season-episode">S<%= video.season %>E<%= video.episode %></h2>
+				<h3>
+				<%= video.episode_metadata.EpisodeName %>
+				<% if (video.season && video.episode) { %>
+					<em class="smaller">S<%= video.season %>E<%= video.episode %></em>
+				<% } %>
+				</h3>
 			<% } %>
 		</div>
 		<% if (video.episode_metadata) { %>

@@ -27,6 +27,7 @@ html, body {
 	height: 100%;
 	width: 100%;
 	font-family: 'Fira Sans', 'Open Sans', sans-serif;
+	font-size: 18px;
 	background: black;
 }
 
@@ -37,6 +38,33 @@ video {
 
 .clearfix {
 	clear: both;
+}
+
+h1, h2, h3, h4, h5 {
+	margin-bottom: 0.5em;
+}
+p {
+	font-size: 1.1em;
+}
+h2, h3, h4, h5 {
+	font-weight: 300;
+}
+h1 {
+	font-size: 2.5em;
+}
+h2 {
+	font-size: 2em;
+}
+h3 {
+	font-size: 1.5em;
+}
+em {
+	font-style: italic;
+	
+	color: rgb(188, 242, 255);
+}
+em.smaller {
+	font-size:0.75em;
 }
 
 #watch {
@@ -53,7 +81,7 @@ video {
 		margin-bottom: 1em;
 	}
 	.meta {
-		width: 20em;
+		width: 40em;
 		height: 100%;
 		background: black;
 		background: rgba(0,0,0,0.8);
@@ -62,16 +90,8 @@ video {
 		left: 0;
 		z-index: 20;
 		color: white;
-		line-height: 2em;
+		line-height: 2.6em;
 		padding: 1em 1.5em;
-	}
-	.meta h1, .meta h2 {
-		z-index: 10;
-		font-weight: 300;
-	}
-	.meta h2 {
-		font-style: italic;
-		color: rgb(188, 242, 255);
 	}
 	.description {
 		line-height: 1.75em;
@@ -108,9 +128,6 @@ video {
 		padding: 3em;
 		background: rgba(0,0,0,0.9);
 		color: white;
-		.series-name {
-			font-size: 3em;
-		}
 		h2 {
 			font-weight: 300;
 		}
@@ -141,10 +158,24 @@ video {
 		a:active {
 
 		}
+		.duration {
+			position: absolute;
+			top: 0;
+			right: 0;
+			background: rgba(0,0,0,0.8);
+			padding: 0.25em 1em;
+		}
 	}
-	.video-thumbnail {
+	.thumbnails {
+		position: relative;
 		float: left;
 		margin-right: 2em;
+		min-height: 236px;
+		width: 420px;
+	}
+	.video-thumbnail {
+		width: 420px;
+		height: auto;
 	}
 }
 

@@ -19,6 +19,8 @@
 
 var _ = require('lodash'),
 		asnyc = require('async'),
+		path = require('path'),
+		uuid = require('node-uuid'),
 		exec = require('child_process').exec,
     parseXML = require('xml2js').parseString,
 		request = require('request');
@@ -26,7 +28,7 @@ var _ = require('lodash'),
 var grab_duration_string = function(raw_file_path, cb) {
 	var command = "avprobe " + raw_file_path + " 2>&1 | grep -Eo 'Duration: [0-9:.]*' | cut -c 11-";
 	console.log("Running", command);
-	var avprobe = exec(command, function (err, stdout, stderr) {
+	exec(command, function (err, stdout, stderr) {
 		if (err) { cb("Error grabbing duration", null); }
 		else {
 			cb(null, stdout);
@@ -92,6 +94,7 @@ module.exports = {
   	},
   	series_metadata: 'json',
   	episode_metadata: 'json',
+  	thumbnails: 'json',
   	valid_extensions: ['mp4', 'avi', 'mkv']
   },
 
@@ -116,6 +119,40 @@ module.exports = {
   		}
   		cb(values);
   	});
+  },
+
+  createThumbnails: function(video, nThumbnails) {
+  	var duration = Video.durationInSeconds(video);
+  	var filenames = [];
+  	for (var i = 0; i < nThumbnails; i++) {
+  		var name = uuid.v4() + ".jpg";
+  		var output = path.join(__dirname, "/../../assets/generated/", name);
+  		var at = parseInt(duration * (i / nThumbnails));
+  		Video.createThumbnail(video, output, at);
+  		filenames.push(name);
+  	}
+
+  	Video.update({
+  		id: video.id
+  	}, {
+  		thumbnails: filenames
+  	}, function(err, videos) {
+  		console.log ("Updated thumbnails for ", videos);
+  	});
+  },
+
+  createThumbnail: function(video, outputFilename, nSeconds, cb) {
+  	var command = "avconv -ss "+ nSeconds +" -i "+ video.raw_file_path +" -qscale 1 -vsync 1 -r 25 " + outputFilename;
+		console.log("Running command", command);
+		exec(command, function (err, stdout, stderr) {});
+  },
+
+  durationInSeconds: function(video) {
+  	if (video.duration) {
+  		return video.duration.hours*60*60 + video.duration.minutes*60 + video.duration.seconds;
+  	} else {
+  		return 0;
+  	}
   },
 
   findOrCreate: function (raw_file_path, callback) {
