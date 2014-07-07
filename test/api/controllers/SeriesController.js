@@ -31,18 +31,22 @@ module.exports = {
 
   view: function (req, res) {
     // e.g., `/series/The Simpsons`
-    Video.find({title: req.params.id}).sort('episode ASC').sort('season ASC').done(function (err, videos) {
+    Series.findOne({title: req.params.id}).done(function(err, series) {
       if (err) return res.send(err, 500);
 
-      if (!videos[0].thumbnails) {
-        for (var i = 0; i < videos.length; i++) {
-          Video.createThumbnails(videos[i], 10);
-        }
-      }
+      Video.find({title: req.params.id}).sort('episode ASC').sort('season ASC').done(function (err, videos) {
+        if (err) return res.send(err, 500);
 
-      res.view({
-        series: videos[0].series_metadata,
-        videos: videos
+        if (!videos[0].thumbnails) {
+          for (var i = 0; i < videos.length; i++) {
+            Video.createThumbnails(videos[i], 10);
+          }
+        }
+
+        res.view({
+          series: series,
+          videos: videos
+        });
       });
     });
   },
@@ -64,7 +68,22 @@ module.exports = {
     });
   },
 
+  favourite: function (req, res) {
+    if (req.method === 'DELETE') {
+      Series.update({title: req.params.id}, {
+        isFavourite: false
+      }).done(function (err, series) {
+        return res.json(series);
+      });
+    } else if (req.method === 'POST') {
+      Series.update({title: req.params.id}, {
+        isFavourite: true
+      }).done(function (err, series) {
+        return res.json(series);
+      });
+    }
 
+  },
 
 
   /**

@@ -14,11 +14,12 @@ module.exports = {
   		required: true,
   		unique: true
   	},
-  	series_metadata: 'json'
+  	series_metadata: 'json',
+    isFavourite: 'boolean'
   },
 
   findOrCreate: function (title, attributes, callback) {
-	Series.findOne({
+    Series.findOne({
     	title: title
     }).done(function(err, result) {
       if (err) { callback(err); }

@@ -1,3 +1,4 @@
+
 <div id="all_series">
 	<div class="panel">
 		<% if (series.length) { %>
@@ -11,7 +12,7 @@
 				<% } %>
 				<div class="poster-buttons">
 					<a href="#" class="poster-button">
-						<i class="fa fa-heart"></i>
+						<i class="fa fa-heart<% if (serie.isFavourite) { %> is-favourite<% } %>"></i>
 					</a>
 					<a href="#" class="poster-button">
 						<i class="fa fa-info-circle"></i>
