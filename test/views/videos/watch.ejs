@@ -29,6 +29,6 @@
 
 	</div>
 	<div class="video-container">
-		<video src="/videos/stream/<%= video.id %>" autoplay controls muted></video>
+		<video id="<%= video.id %>" src="/videos/stream/<%= video.id %>" data-resume-from="<%= video.left_off_at %>" autoplay controls muted></video>
 	</div>
 </div>

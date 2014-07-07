@@ -33,6 +33,11 @@
 									<% } %><span class="minutes"><%= Video.leftPad(video.duration.minutes, 2) %></span>:<span class="seconds"><%= Video.leftPad(video.duration.seconds, 2) %></span>
 								</div>
 							<% } %>
+							<% if (video.left_off_at) { %>
+								<div class="watch-progress">
+									<span class="watched-bar" title="<%= video.left_off_at %> seconds of <%= Video.durationInSeconds(video) %> total seconds" style="width: <%= 100*video.left_off_at / Video.durationInSeconds(video) %>%"></span>
+								</div>
+							<% } %>
 						</div>
 						<h3><%= video.episode_metadata.EpisodeName %> - S<%= video.season %>E<%= video.episode %></h3>
 						<p class="video-overview"><%= video.episode_metadata.Overview %></p>

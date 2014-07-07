@@ -92,6 +92,7 @@ module.exports = {
   		required: true,
   		unique: true
   	},
+  	left_off_at: 'integer',
   	series_metadata: 'json',
   	episode_metadata: 'json',
   	thumbnails: 'json',

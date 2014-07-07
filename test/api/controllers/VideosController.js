@@ -63,8 +63,18 @@ module.exports = {
       if (err) return res.send(err, 500);
 
       Video.getThumbnails(video, 10, function (err, video) {
+        if (err) return res.send(err, 500);
         res.json(video.thumbnails);
       });
+    });
+  },
+
+  setLeftOffAt: function (req, res) {
+    Video.update({id: req.params.id}, {
+      left_off_at: req.body.left_off_at
+    }).done(function (err, videos) {
+      if (err) return res.send(err, 500);
+      res.json({status: 'ok', debug: videos[0]});
     });
   },
 
