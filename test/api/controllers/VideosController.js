@@ -58,6 +58,16 @@ module.exports = {
     });
   },
 
+  getThumbnails: function (req, res) {
+    Video.findOne({id: req.params.id}).done(function (err, video) {
+      if (err) return res.send(err, 500);
+
+      Video.getThumbnails(video, 10, function (err, video) {
+        res.json(video.thumbnails);
+      });
+    });
+  },
+
   stream: function (req, res) {
 
     Video.findOne(req.params.id).done(function (err, video) {

@@ -121,12 +121,18 @@ module.exports = {
   	});
   },
 
-  createThumbnails: function(video, nThumbnails) {
+  getThumbnails: function(video, nThumbnails, cb) {
+
+  	if (video.thumbnails && video.thumbnails.length) {
+  		cb(null, video);
+  		return;
+  	}
+
   	var duration = Video.durationInSeconds(video);
   	var filenames = [];
   	for (var i = 0; i < nThumbnails; i++) {
   		var name = uuid.v4() + ".jpg";
-  		var output = path.join(__dirname, "/../../assets/generated/", name);
+  		var output = path.join(__dirname, "/../../assets/images/thumbs/", name);
   		var at = parseInt(duration * (i / nThumbnails));
   		Video.createThumbnail(video, output, at);
   		filenames.push(name);
@@ -137,7 +143,12 @@ module.exports = {
   	}, {
   		thumbnails: filenames
   	}, function(err, videos) {
-  		console.log ("Updated thumbnails for ", videos);
+  		var result = videos[0];
+  		if (err) {
+  			cb("Unable to update thumbnails");
+  		} else {
+  			cb(null, result);
+  		}
   	});
   },
 

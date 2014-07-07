@@ -37,12 +37,6 @@ module.exports = {
       Video.find({title: req.params.id}).sort('episode ASC').sort('season ASC').done(function (err, videos) {
         if (err) return res.send(err, 500);
 
-        if (!videos[0].thumbnails) {
-          for (var i = 0; i < videos.length; i++) {
-            Video.createThumbnails(videos[i], 10);
-          }
-        }
-
         res.view({
           series: series,
           videos: videos

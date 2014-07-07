@@ -17,7 +17,7 @@
 
 FROM ubuntu
 RUN apt-get update
-RUN apt-get install -y build-essential git redis-server nodejs phantomjs npm libav-tools transcode grep
+RUN apt-get install -y git redis-server nodejs phantomjs npm libav-tools grep
 RUN npm install -g coffee-script grunt grunt-cli supervisor bower sails
 RUN ln -sf /usr/bin/nodejs /usr/bin/node
 RUN apt-get install -y tmux
