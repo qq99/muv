@@ -59,7 +59,7 @@ var guessit = function (raw_file_path) {
 
 	var fileName = raw_file_path.split("/").splice(-1)[0];
 	var parsed = {};
-	
+
 	var matches = scene.exec(fileName);
 	if (!matches || matches.length !== 4) {
 		matches = re.exec(fileName);
@@ -80,7 +80,7 @@ var guessit = function (raw_file_path) {
 	    parsed['episode'] = matches[3];
 	  }
 	}
-	
+
 	return parsed;
 };
 
@@ -217,7 +217,7 @@ module.exports = {
 
 			parseXML(body, {trim: true}, function(err, result) {
 			  if (err) { callback("Unable to parse XML result: " + err, null); return; }
-	  		
+
 	  		if (result.Data && result.Data.Series) {
 	  			console.log("Requesting: ", "http://thetvdb.com/api/"+ TVDB_KEY +"/series/"+ result.Data.Series[0].seriesid[0] +"/all/")
 					request("http://thetvdb.com/api/"+ TVDB_KEY +"/series/"+ result.Data.Series[0].seriesid[0] +"/all/", function (err, response, body) {
@@ -263,7 +263,7 @@ module.exports = {
 								});
 
 							});
-						});							
+						});
 					});
 	  		} else {
 	  			callback("No results", null); return;

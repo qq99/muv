@@ -18,7 +18,7 @@ $document = $(document)
 $document.on "ready", ->
 	$document.on "focus", ".video", (e) ->
 		startSimpleSlideshow(e.currentTarget)
-	
+
 	$document.on "blur", ".video", (e) ->
 		stopSimpleSlideshow()
 
@@ -27,7 +27,7 @@ $document.on "ready", ->
 
 	$document.on "mouseleave", ".video", (e) ->
 		stopSimpleSlideshow();
-	
+
 	$document.on "click", ".js-favourite-toggle", (e) ->
 		$link = $(e.currentTarget)
 		$icon = $link.find("i")

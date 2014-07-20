@@ -27,14 +27,14 @@ var isNumber = function (n) {
 };
 
 module.exports = {
-    
-  
+
+
   /**
    * Action blueprints:
    *    `/videos/list`
    */
   list: function (req, res) {
-    
+
     Video.find().sort('title ASC').done(function(err, videos) {
       if (err) return res.send(err,500);
 
@@ -203,5 +203,5 @@ module.exports = {
    */
   _config: {}
 
-  
+
 };

@@ -16,13 +16,13 @@
  */
 
 module.exports = {
-    
+
   /**
    * Action blueprints:
    *    `/series/destroy`
    */
   destroy: function (req, res) {
-    
+
     // Send a JSON response
     return res.json({
       hello: 'world'
@@ -51,7 +51,7 @@ module.exports = {
    *    `/series/list`
    */
   list: function (req, res) {
-    
+
     Series.find().sort('title ASC').done(function(err, series) {
       if (err) return res.send(err,500);
 
@@ -86,5 +86,5 @@ module.exports = {
    */
   _config: {}
 
-  
+
 };
