@@ -101,7 +101,7 @@ module.exports = {
   	series_metadata: 'json',
   	episode_metadata: 'json',
   	thumbnails: 'json',
-  	valid_extensions: ['mp4', 'avi', 'mkv']
+  	valid_extensions: ['mp4', 'mkv', 'webm']
   },
 
   beforeCreate: function(values, next) {
