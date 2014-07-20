@@ -21,6 +21,7 @@ var _ = require('lodash'),
 		asnyc = require('async'),
 		path = require('path'),
 		uuid = require('node-uuid'),
+    Q = require('q'),
 		exec = require('child_process').exec,
     parseXML = require('xml2js').parseString,
 		request = require('request');
@@ -130,33 +131,42 @@ module.exports = {
   	}
 
   	var duration = Video.durationInSeconds(video);
+    var tasks = [];
   	var filenames = [];
   	for (var i = 0; i < nThumbnails; i++) {
   		var name = uuid.v4() + ".jpg";
-  		var output = path.join(__dirname, "/../../assets/images/thumbs/", name);
+  		var output = path.join(process.cwd(), ".tmp/public/thumbs/", name);
   		var at = parseInt(duration * (i / nThumbnails));
-  		Video.createThumbnail(video, output, at);
+  		tasks.push(Video.createThumbnail(video, output, at));
   		filenames.push(name);
   	}
 
-  	Video.update({
-  		id: video.id
-  	}, {
-  		thumbnails: filenames
-  	}, function(err, videos) {
-  		var result = videos[0];
-  		if (err) {
-  			cb("Unable to update thumbnails");
-  		} else {
-  			cb(null, result);
-  		}
-  	});
+    Q.allSettled(tasks).then(function () {
+      console.log("Thumbnail creation finished for video", video.raw_file_path);
+      Video.update({
+        id: video.id
+      }, {
+        thumbnails: filenames
+      }, function(err, videos) {
+        var result = videos[0];
+        if (err) {
+          cb("Unable to update thumbnails");
+        } else {
+          cb(null, result);
+        }
+      });
+    });
   },
 
   createThumbnail: function(video, outputFilename, nSeconds, cb) {
-  	var command = "avconv -ss "+ nSeconds +" -i "+ video.raw_file_path +" -qscale 1 -vsync 1 -r 25 " + outputFilename;
+    var dfrd = Q.defer();
+  	var command = "avconv -ss "+ nSeconds +" -i "+ video.raw_file_path +" -qscale 1 -vsync 1 -vframes 1 -y " + outputFilename;
 		console.log("Running command", command);
-		exec(command, function (err, stdout, stderr) {});
+		exec(command, function (err, stdout, stderr) {
+      console.log(err, stdout, stderr);
+      dfrd.resolve();
+    });
+    return dfrd.promise;
   },
 
   durationInSeconds: function(video) {

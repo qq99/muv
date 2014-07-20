@@ -49,7 +49,7 @@ $(document).on("ready", function () {
 			console.log('got ', response);
 			for (var i = 0; i < response.length; i++) {
 				var filename = response[i];
-				var $img = $(".video-thumbnail").first().clone().attr("src", "/images/thumbs/" + filename).addClass("hidden");
+				var $img = $(".video-thumbnail").first().clone().attr("src", "/thumbs/" + filename).addClass("hidden");
 				$container.append($img);
 			}
 		});

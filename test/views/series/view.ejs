@@ -23,7 +23,7 @@
 							<div class="thumbnails">
 								<img class="video-thumbnail" src="http://thetvdb.com/banners/<%= video.episode_metadata.filename %>" alt="">
 								<% _.each(video.thumbnails, function (thumb) { %>
-									<img class="video-thumbnail hidden" src="/images/thumbs/<%= thumb %>" alt="">
+									<img class="video-thumbnail hidden" src="/thumbs/<%= thumb %>" alt="">
 								<% }); %>
 							</div>
 							<% if (video.duration) { %>
