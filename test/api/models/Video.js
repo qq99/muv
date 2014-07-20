@@ -26,8 +26,12 @@ var _ = require('lodash'),
     parseXML = require('xml2js').parseString,
 		request = require('request');
 
+var escape_spaces = function (s) {
+  return s.replace(/ /g, '\\ ');
+};
+
 var grab_duration_string = function(raw_file_path, cb) {
-	var command = "avprobe " + raw_file_path + " 2>&1 | grep -Eo 'Duration: [0-9:.]*' | cut -c 11-";
+	var command = "avprobe " + escape_spaces(raw_file_path) + " 2>&1 | grep -Eo 'Duration: [0-9:.]*' | cut -c 11-";
 	console.log("Running", command);
 	exec(command, function (err, stdout, stderr) {
 		if (err) { cb("Error grabbing duration", null); }
@@ -133,7 +137,7 @@ module.exports = {
   	var duration = Video.durationInSeconds(video);
     var tasks = [];
   	var filenames = [];
-  	for (var i = 0; i < nThumbnails; i++) {
+  	for (var i = 1; i < nThumbnails; i++) {
   		var name = uuid.v4() + ".jpg";
   		var output = path.join(process.cwd(), ".tmp/public/thumbs/", name);
   		var at = parseInt(duration * (i / nThumbnails));
@@ -160,7 +164,8 @@ module.exports = {
 
   createThumbnail: function(video, outputFilename, nSeconds, cb) {
     var dfrd = Q.defer();
-  	var command = "avconv -ss "+ nSeconds +" -i "+ video.raw_file_path +" -qscale 1 -vsync 1 -vframes 1 -y " + outputFilename;
+    var path = escape_spaces(video.raw_file_path);
+  	var command = "avconv -ss "+ nSeconds +" -i "+ path +" -qscale 1 -vsync 1 -vframes 1 -y " + outputFilename;
 		console.log("Running command", command);
 		exec(command, function (err, stdout, stderr) {
       console.log(err, stdout, stderr);

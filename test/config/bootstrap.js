@@ -9,6 +9,7 @@
  */
 
 var fs = require('fs'),
+  express = require('express'),
 	watch = require('node-watch');
 
 module.exports.bootstrap = function (cb) {
