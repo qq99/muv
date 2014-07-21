@@ -8,15 +8,41 @@ module.exports =
     Series.findOne({title: req.params.id}).done (err, series) ->
       return res.send(err, 500) if err
 
-      Video.find({title: req.params.id})
-        .sort('episode ASC')
-        .sort('season ASC')
-        .done (err, videos) ->
-          return res.send(err, 500) if err
+      options =
+        title: req.params.id
 
-          res.view
-            series: series
-            videos: videos
+      if req.query?.season
+        options['season'] = parseInt(req.query.season, 10) || 1
+
+
+      whenFound = (err, videos) ->
+        return res.send(err, 500) if err
+
+        season_numbers = _.uniq(_.map videos, (video) -> video.season)
+
+        res.view
+          series: series
+          videos: videos
+          season_numbers: season_numbers
+          filter_options: options
+          sort: req.query?.sort || 'latest'
+
+
+      if req.query?.sort == 'latest'
+        Video.find(options)
+          .sort('season DESC')
+          .sort('episode DESC')
+          .done whenFound
+      else if req.query?.sort == 'order'
+        Video.find(options)
+          .sort('season ASC')
+          .sort('episode ASC')
+          .done whenFound
+      else
+        Video.find(options)
+          .sort('season DESC')
+          .sort('episode DESC')
+          .done whenFound
 
   list: (req, res) ->
     Series.find().sort('title ASC').done (err, series) ->

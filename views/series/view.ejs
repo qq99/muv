@@ -5,11 +5,40 @@
 		</h1>
 		<h3><%= series.series_metadata.Overview %></h3>
 		<div class="poster-buttons">
+			<div class="dropdown poster-button">
+				<button class="dropdown-trigger">
+					<% if (filter_options.season) { %>
+						Season <%= filter_options.season %>
+					<% } else { %>
+						All Seasons
+					<% } %>
+					 (<%= videos.length %> episodes)
+				</button>
+				<div class="dropdown-options">
+					<a class="dropdown-item poster-button" href="<% if (sort) { %>?sort=<%= sort %><% } %>">All Seasons</a>
+					<% _.each(season_numbers, function (season) { %>
+						<a href="" class="dropdown-item poster-button">Season <%= season %></a>
+					<% }) %>
+				</div>
+			</div>
+			<% if (sort == 'latest') { %>
+				<a href="?sort=order<% if (filter_options.season) { %>&season=<%= filter_options.season %><%}%>" class="poster-button">
+					<i class="fa fa-sort"></i> Sort: latest
+				</a>
+			<% } else if (sort == 'order') { %>
+				<a href="?sort=latest<% if (filter_options.season) { %>&season=<%= filter_options.season %><%}%>" class="poster-button">
+					<i class="fa fa-sort"></i> Sort: order
+				</a>
+			<% } %>
 			<a href="#" data-href="/series/favourite/<%= series.title %>" class="poster-button js-favourite-toggle">
 				<i class="fa fa-heart<% if (series.isFavourite) { %> is-favourite<% } %>"></i>
 			</a>
 			<a href="#" class="poster-button">
-				<i class="fa fa-info-circle"></i>
+				<i class="fa fa-star-o"></i>
+				<i class="fa fa-star-o"></i>
+				<i class="fa fa-star-o"></i>
+				<i class="fa fa-star-o"></i>
+				<i class="fa fa-star-o"></i>
 			</a>
 			<div class="clearfix"></div>
 		</div>
@@ -42,7 +71,7 @@
 						<h3><%= video.episode_metadata.EpisodeName %> - S<%= video.season %>E<%= video.episode %></h3>
 						<p class="video-overview"><%= video.episode_metadata.Overview %></p>
 					<% } %>
-					<%= video.raw_file_path %>
+					<span class="hide"><%= video.raw_file_path %></span>
 					<div class="clearfix"></div>
 				</div>
 			</a>
