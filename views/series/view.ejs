@@ -7,8 +7,8 @@
 		<div class="poster-buttons">
 			<div class="dropdown poster-button">
 				<button class="dropdown-trigger">
-					<% if (filter_options.season) { %>
-						Season <%= filter_options.season %>
+					<% if (season) { %>
+						Season <%= season %>
 					<% } else { %>
 						All Seasons
 					<% } %>
@@ -17,16 +17,16 @@
 				<div class="dropdown-options">
 					<a class="dropdown-item poster-button" href="<% if (sort) { %>?sort=<%= sort %><% } %>">All Seasons</a>
 					<% _.each(season_numbers, function (season) { %>
-						<a href="" class="dropdown-item poster-button">Season <%= season %></a>
+						<a href="<%= URI().query({sort: sort, season: season}) %>" class="dropdown-item poster-button">Season <%= season %></a>
 					<% }) %>
 				</div>
 			</div>
 			<% if (sort == 'latest') { %>
-				<a href="?sort=order<% if (filter_options.season) { %>&season=<%= filter_options.season %><%}%>" class="poster-button">
+				<a href="<%= URI().query({sort: 'order', season: season}) %>" class="poster-button">
 					<i class="fa fa-sort"></i> Sort: latest
 				</a>
 			<% } else if (sort == 'order') { %>
-				<a href="?sort=latest<% if (filter_options.season) { %>&season=<%= filter_options.season %><%}%>" class="poster-button">
+				<a href="<%= URI().query({sort: 'latest', season: season}) %>" class="poster-button">
 					<i class="fa fa-sort"></i> Sort: order
 				</a>
 			<% } %>

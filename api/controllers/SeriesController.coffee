@@ -1,3 +1,5 @@
+URI = require('URIjs')
+
 module.exports =
 
   destroy: (req, res) ->
@@ -11,18 +13,22 @@ module.exports =
       options =
         title: req.params.id
 
-      if req.query?.season
-        options['season'] = parseInt(req.query.season, 10) || 1
-
-
       whenFound = (err, videos) ->
         return res.send(err, 500) if err
 
+        season = parseInt(req.query?.season, 10) || undefined
         season_numbers = _.uniq(_.map videos, (video) -> video.season)
+        filtered_videos = videos
+
+        if req.query?.season
+          filtered_videos = _.where videos, (video) ->
+            video.season == season
 
         res.view
+          URI: URI
+          season: season
           series: series
-          videos: videos
+          videos: filtered_videos
           season_numbers: season_numbers
           filter_options: options
           sort: req.query?.sort || 'latest'

@@ -1,9 +1,10 @@
-<div id="all_series">
+<% include ../header.ejs %>
+<div id="all_series" class="with-header">
 	<div class="panel">
 		<% if (series.length) { %>
-		<div class="poster-container">
+		<ul class="responsive-grid">
 			<% _.each(series, function (serie) { %>
-			<div class="poster">
+			<li class="poster">
 				<% if (serie.series_metadata && serie.series_metadata.poster) { %>
 					<a class="poster-link" href="/series/view/<%= serie.title %>">
 						<img class="video-thumbnail" src="http://thetvdb.com/banners/<%= serie.series_metadata.poster %>" alt="">
@@ -18,7 +19,7 @@
 					</a>
 					<div class="clearfix"></div>
 				</div>
-			</div>
+			</li>
 			<% }); %>
 			<div class="clearfix"></div>
 		</div>
