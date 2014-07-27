@@ -8,13 +8,20 @@ $document.on "ready", ->
 	setLeftOffAt = (e) ->
 		socket.post url, left_off_at: e.currentTarget.currentTime
 
-	$video.on "timeupdate", _.debounce(setLeftOffAt, 250)
+	$video.on "timeupdate", _.throttle(setLeftOffAt, 250)
 
 	$video.one "canplay", (e) ->
 		console.log(e);
 		if last_time
 			$video[0].currentTime = last_time;
 
-	setTimeout ->
-		$(".meta").addClass("hidden");
-	, 2000
+	hideMeta = (ms = 2000) ->
+		setTimeout ->
+			$(".meta").addClass("hidden");
+		, ms
+
+	hideMeta()
+
+	$document.on "keydown", ->
+		$(".meta").removeClass("hidden");
+		hideMeta(8000)
