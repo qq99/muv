@@ -18,6 +18,7 @@
  // avconv -ss 8000 -i /media/sf_TV/American.Dad.S08E01.HDTV.x264-LOL.mp4 -qscale 1 -vsync 1 -r 25 ~/foo.jpg
 
 var _ = require('lodash'),
+    bash = require('bash'),
 		asnyc = require('async'),
 		path = require('path'),
 		uuid = require('node-uuid'),
@@ -28,12 +29,8 @@ var _ = require('lodash'),
 
 var THUMB_DIR = process.cwd() + '/files/thumbs/';
 
-var escape_spaces = function (s) {
-  return s.replace(/( \(\))/g, '\\ ');
-};
-
 var grab_duration_string = function(raw_file_path, cb) {
-	var command = "avprobe " + escape_spaces(raw_file_path) + " 2>&1 | grep -Eo 'Duration: [0-9:.]*' | cut -c 11-";
+	var command = "avprobe " + bash.escape(raw_file_path) + " 2>&1 | grep -Eo 'Duration: [0-9:.]*' | cut -c 11-";
 	console.log("Running", command);
 	exec(command, function (err, stdout, stderr) {
 		if (err) { cb("Error grabbing duration", null); }
@@ -187,7 +184,7 @@ module.exports = {
 
   createThumbnail: function(video, outputFilename, nSeconds, cb) {
     var dfrd = Q.defer();
-    var path = escape_spaces(video.raw_file_path);
+    var path = bash.escape(video.raw_file_path);
   	var command = "avconv -ss "+ nSeconds +" -i "+ path +" -qscale 1 -vsync 1 -vframes 1 -y " + outputFilename;
 		console.log("Running command", command);
 		exec(command, function (err, stdout, stderr) {

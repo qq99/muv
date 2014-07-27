@@ -30,7 +30,8 @@
     "sails-memory": "~0.9.1",
     "uuid": "~1.4.1",
     "q": "~1.0.1",
-    "URIjs": "~1.13.2"
+    "URIjs": "~1.13.2",
+    "bash": "0.0.1"
   },
   "author": "Anthony Cameron (qq99)",
   "license": "GPLv3 and MIT"
