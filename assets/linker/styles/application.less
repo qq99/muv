@@ -31,7 +31,7 @@ html, body {
 	height: 100%;
 	width: 100%;
 	font-family: 'Fira Sans', 'Open Sans', sans-serif;
-	font-size: 18px;
+	font-size: 20px;
 	background: black;
 }
 
@@ -48,7 +48,8 @@ h1, h2, h3, h4, h5 {
 	margin-bottom: 0.5em;
 }
 p {
-	font-size: 1.1em;
+	font-size: 1.3em;
+	color: #ccc;
 }
 h2, h3, h4, h5 {
 	font-weight: 300;
@@ -75,7 +76,7 @@ em.smaller {
 	display: none;
 }
 .panel {
-	padding: 4em;
+	padding: 2em 2.5em;
 }
 
 .main-navigation {
@@ -88,14 +89,14 @@ em.smaller {
 }
 
 .top-nav-container {
-	margin: 1em;
+	margin: 1.5em 3em 0em 3em;
 	list-style: none;
 	li {
 		display: block;
 		float: left;
 		font-size: 2em;
 		&.active {
-			background: rgba(30, 30, 30, 0.8);
+			background: rgba(50, 50, 50, 0.8);
 		}
 		a {
 			color: white;
@@ -202,7 +203,7 @@ a.back {
 	}
 	.video-tile {
 		padding: 2em;
-		background: rgba(0,0,0,0.75);
+		background: rgba(0,0,0,0.85);
 		color: white;
 		font-size: 1.1em;
 		a:active {
@@ -239,6 +240,7 @@ a.back {
 		width: auto;
 		border: 1px solid #333;
 	}
+
 }
 
 #all_series {
@@ -266,6 +268,7 @@ a.back {
 	width: 20em;
 	color: white;
 	padding: 1em;
+	font-size: 1.4em;
 	img {
 		width: 100%;
 		height: auto;
@@ -384,7 +387,7 @@ button {
 		float: left;
 		overflow: hidden;
 		width: 25%;
-		width: calc(100% / 5);
+		width: calc(100% / 4);
 	}
 	@media screen and (max-width: 660px) {
 		li {
@@ -429,7 +432,7 @@ button {
 		bottom: 0em;
 		right: 0em;
 		padding: 0.25em 0.5em;
-		background: rgba(0,0,0,0.5);
+		background: rgba(0,0,0,0.75);
 	}
 	.season {
 		position: absolute;
@@ -437,6 +440,6 @@ button {
 		top: 0em;
 		left: 0em;
 		padding: 0.25em 0.5em;
-		background: rgba(0,0,0,0.5);
+		background: rgba(0,0,0,0.55);
 	}
 }
