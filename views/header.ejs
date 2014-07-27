@@ -1,14 +1,14 @@
-<header>
-  <ul class="top-nav">
+<header class="main-navigation">
+  <ul class="top-nav-container">
     <li>
       <a class="home" href="/">
         <i class="fa fa-home"></i>
       </a>
     </li>
-    <li>
+    <li <% if (section == 'all-videos') {%>class="active" <% } %>>
       <a href="/videos/list">All Videos</a>
     </li>
-    <li>
+    <li <% if (section == 'tv') {%>class="active" <% } %>>
       <a href="/series/list">TV</a>
     </li>
   </ul>

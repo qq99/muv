@@ -26,8 +26,10 @@ var _ = require('lodash'),
     parseXML = require('xml2js').parseString,
 		request = require('request');
 
+var THUMB_DIR = process.cwd() + '/files/thumbs/';
+
 var escape_spaces = function (s) {
-  return s.replace(/ /g, '\\ ');
+  return s.replace(/( \(\))/g, '\\ ');
 };
 
 var grab_duration_string = function(raw_file_path, cb) {
@@ -112,6 +114,27 @@ module.exports = {
   	});
   },
 
+  afterCreate: function(video, cb) {
+    var at = 2*60;
+    var name = uuid.v4() + ".jpg";
+    var output = path.join(THUMB_DIR, name);
+    thumb = Video.createThumbnail(video, output, at);
+    thumb.done(function() {
+      Video.update({
+        id: video.id
+      }, {
+        thumbnails: [name]
+      }, function(err, videos) {
+        var result = videos[0];
+        if (err) {
+          cb("Unable to update thumbnails");
+        } else {
+          cb(null, result);
+        }
+      });
+    });
+  },
+
   updateDuration: function (values, cb) {
   	grab_duration_string(values.raw_file_path, function(err, duration) {
   		var split;
@@ -129,7 +152,7 @@ module.exports = {
 
   getThumbnails: function(video, nThumbnails, cb) {
 
-  	if (video.thumbnails && video.thumbnails.length) {
+  	if (video.thumbnails && video.thumbnails.length > 1) {
   		cb(null, video);
   		return;
   	}
@@ -139,7 +162,7 @@ module.exports = {
   	var filenames = [];
   	for (var i = 1; i < nThumbnails; i++) {
   		var name = uuid.v4() + ".jpg";
-  		var output = path.join(process.cwd(), ".tmp/public/thumbs/", name);
+  		var output = path.join(THUMB_DIR, name);
   		var at = parseInt(duration * (i / nThumbnails));
   		tasks.push(Video.createThumbnail(video, output, at));
   		filenames.push(name);

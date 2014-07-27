@@ -1,7 +1,6 @@
 fs = require("fs")
 _ = require("lodash")
 recursive = require("recursive-readdir")
-process = require("child_process")
 async = require("async")
 path = require("path")
 
@@ -9,6 +8,19 @@ isNumber = (n) ->
   return !isNaN(parseFloat(n)) && isFinite(n)
 
 module.exports =
+
+  thumb: (req, res) ->
+    filename = req.params.id # UNSAFE; sanitize this
+    location = path.join(process.cwd(), '/files/thumbs/', filename)
+
+    if fs.existsSync(location)
+      img = fs.readFileSync(location)
+    else
+      location = path.join(process.cwd(), '/files/thumbs/no-image.png')
+      img = fs.readFileSync(location)
+
+    res.writeHead 200, {'Content-Type': 'image/jpg'}
+    res.end img, 'binary'
 
   list: (req, res) ->
 
@@ -143,7 +155,9 @@ module.exports =
         , (err, results) ->
           res.send(err, 500) if err
 
-          res.json(results)
+          res.json({
+            everything: 'is ok!'
+          });
 
   _config: {}
 

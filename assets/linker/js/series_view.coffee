@@ -45,6 +45,6 @@ $document.on "ready", ->
 		socket.get "/videos/getThumbnails/#{videoId}", (response) ->
 			for filename in response
 				$img = $(".video-thumbnail").first().clone()
-					.attr("src", "/thumbs/#{filename}")
+					.attr("src", "/videos/thumb/#{filename}")
 					.addClass("hidden")
 				$container.append $img

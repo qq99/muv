@@ -1,3 +1,4 @@
+<% section = 'all-videos' %>
 <% include ../header.ejs %>
 <div id="all-videos" class="with-header">
   <div class="panel">
@@ -6,9 +7,9 @@
       <% _.each(videos, function (video) { %>
     	  <li class="poster">
           <div class="poster-innards">
-            <% if (video.episode_metadata) { %>
-              <a href="/videos/watch/<%= video.id %>" class="poster-link">
-                <img class="video-thumbnail" src="http://thetvdb.com/banners/<%= video.episode_metadata.filename %>" alt="">
+            <% if (video.thumbnails) { %>
+              <a href="/videos/watch/<%= video.id %>" class="poster-link aspect16x8">
+                <img src="/videos/thumb/<%= video.thumbnails[0] %>" class="video-thumbnail">
               </a>
             <% } %>
       	  	<% if (video.title) { %>
@@ -21,7 +22,9 @@
       	  		S<%= video.season %>E<%= video.episode %>
             </span>
       	  	<% } else { %>
-      				<%= video.raw_file_path %>
+              <span class="title">
+      				  <%= video.raw_file_path %>
+              </span>
       	  	<% } %>
           </div>
     	  </li>

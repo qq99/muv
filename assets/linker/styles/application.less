@@ -78,25 +78,32 @@ em.smaller {
 	padding: 4em;
 }
 
-.top-nav {
-	padding: 0 0.5em;
+.main-navigation {
 	position: fixed;
-	z-index: 2000;
 	width: 100%;
-	list-style: none;
+	z-index: 2000;
 	background: black;
 	background: linear-gradient(to bottom, rgba(0,0,0,1) 0%,rgba(0,0,0,0.72) 81%,rgba(0,0,0,0.7) 86%,rgba(0,0,0,0) 100%);
+	padding-bottom: 1em;
+}
+
+.top-nav-container {
+	margin: 1em;
+	list-style: none;
 	li {
 		display: block;
 		float: left;
 		font-size: 2em;
+		&.active {
+			background: rgba(30, 30, 30, 0.8);
+		}
 		a {
 			color: white;
 			text-decoration: none;
 			display: block;
 			width: 100%;
 			height: 100%;
-			padding: 0.5em;
+			padding: 0.25em 0.5em;
 			outline: 0;
 			&:focus, &:hover {
 				background: green;
@@ -376,7 +383,7 @@ button {
 		position: relative;
 		float: left;
 		overflow: hidden;
-		width: 16.666667%;
+		width: 25%;
 		width: calc(100% / 5);
 	}
 	@media screen and (max-width: 660px) {
@@ -386,9 +393,32 @@ button {
 	}
 }
 
+.aspect16x9 {
+	position: relative;
+	padding-bottom: 56.25%; /* 16:9 */
+	padding-top: 25px;
+	height: 0;
+	img, video {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+	}
+}
+.aspect16x10 {
+	.aspect16x9;
+	padding-bottom: 62.5%;
+}
+.aspect16x8 {
+	.aspect16x9;
+	padding-bottom: 50%;
+}
+
 #all-videos {
 	.poster-innards {
 		position: relative;
+		overflow: hidden;
 		span {
 			text-shadow: 1px 1px 5px black;
 		}
@@ -396,13 +426,17 @@ button {
 	.title {
 		position: absolute;
 		display: block;
-		bottom: 0.25em;
-		right: 0.5em;
+		bottom: 0em;
+		right: 0em;
+		padding: 0.25em 0.5em;
+		background: rgba(0,0,0,0.5);
 	}
 	.season {
 		position: absolute;
 		display: block;
-		top: 0.25em;
-		left: 0.5em;
+		top: 0em;
+		left: 0em;
+		padding: 0.25em 0.5em;
+		background: rgba(0,0,0,0.5);
 	}
 }
