@@ -29,14 +29,17 @@ $document.on "ready", ->
 		stopSimpleSlideshow();
 
 	$document.on "click", ".js-favourite-toggle", (e) ->
+		e.preventDefault()
 		$link = $(e.currentTarget)
 		$icon = $link.find("i")
 		if $icon.hasClass 'is-favourite'
 			socket.delete $link.data("href"), ->
 				$icon.removeClass("is-favourite")
+				$icon.removeClass("fa-heart").addClass("fa-heart-o")
 		else
 			socket.post $link.data("href"), ->
 				$icon.addClass("is-favourite")
+				$icon.removeClass("fa-heart-o").addClass("fa-heart")
 
 	$(".video:not(.has-thumbnails)").one "mouseenter", (e) ->
 		videoId = $(e.currentTarget).data("id")

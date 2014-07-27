@@ -6,19 +6,20 @@
 		<ul class="responsive-grid">
 			<% _.each(series, function (serie) { %>
 			<li class="poster">
-				<% if (serie.series_metadata && serie.series_metadata.poster) { %>
-					<a class="poster-link" href="/series/view/<%= serie.title %>">
-						<img class="video-thumbnail" src="http://thetvdb.com/banners/<%= serie.series_metadata.poster %>" alt="">
-					</a>
-				<% } %>
-				<div class="poster-buttons">
-					<a href="#" data-href="/series/favourite/<%= serie.title %>" class="poster-button js-favourite-toggle">
-						<i class="fa fa-heart<% if (serie.isFavourite) { %> is-favourite<% } %>"></i>
-					</a>
-					<a href="#" class="poster-button">
-						<i class="fa fa-info-circle"></i>
-					</a>
-					<div class="clearfix"></div>
+				<div class="poster-innards">
+					<% if (serie.series_metadata && serie.series_metadata.poster) { %>
+						<a class="poster-link" href="/series/view/<%= serie.title %>">
+							<img class="video-thumbnail" src="http://thetvdb.com/banners/<%= serie.series_metadata.poster %>" alt="">
+						</a>
+					<% } else { %>
+						<a class="poster-link" href="/series/view/<%= serie.title %>">
+							<img class="video-thumbnail" src="/images/no-poster.png" alt="">
+						</a>
+						<span class="title"><%= serie.title %></span>
+					<% } %>
+					<button data-href="/series/favourite/<%= serie.title %>" class="fave-heart js-favourite-toggle">
+						<i class="fa <% if (serie.isFavourite) { %>fa-heart is-favourite<% } else { %>fa-heart-o<% } %>"></i>
+					</button>
 				</div>
 			</li>
 			<% }); %>
