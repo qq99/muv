@@ -220,10 +220,13 @@ a.back {
 		padding: 3em;
 	}
 	.video-tile {
-		padding: 2em;
-		background: rgba(0,0,0,0.85);
-		color: white;
+		color: #222;
 		font-size: 1.1em;
+		p {
+			color: #666;
+		}
+		padding-top: 2em;
+		border-top: 1px solid #999;
 	}
 	.duration {
 		position: absolute;
@@ -236,8 +239,7 @@ a.back {
 		position: relative;
 		float: left;
 		margin-right: 2em;
-		min-height: 236px;
-		width: 420px;
+		width: 520px;
 	}
 	.thumbnails {
 		height: 100%;
@@ -262,7 +264,7 @@ a.back {
 		padding: 0 3em 0 3em;
 		.thumbnails {
 			outline: 1px solid #333;
-			box-shadow: 0px 10px 20px rgba(0,0,0,0.3);
+			box-shadow: 0px -10px 40px rgba(0, 0, 0, 0.5);
 		}
 		h1 {
 			font-weight: lighter;
@@ -279,8 +281,11 @@ a.back {
 		}
 		a {
 			color: black;
-			&:hover {
-				background: transparent;;
+			&:focus, &:hover {
+				background: transparent;
+				.thumbnails {
+					outline: 5px solid #94ddff;
+				}
 			}
 		}
 		p {
@@ -307,9 +312,10 @@ a.video {
 		margin-bottom: 2em;
 	}
 	&:focus, &:hover {
-		background: black;
 		.video-tile {
-			outline: 5px solid rgb(148, 221, 255);
+			.thumbnails {
+				outline: 5px solid rgb(148, 221, 255);
+			}
 		}
 	}
 }
