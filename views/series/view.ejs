@@ -46,6 +46,7 @@
 	<div class="video-list">
 		<div class="series-featured-image" style="background:url(http://thetvdb.com/banners/<%= series.series_metadata.fanart %>); background-size: cover;"></div>
 		<% if (last_watched_video) { %>
+		<% video = last_watched_video; %>
 		<div class="featured-episode">
 			<a class="video <% if (video.thumbnails && video.thumbnails.length > 1) {%> has-thumbnails<% } %>" data-id="<%= video.id %>" href="/videos/watch/<%= video.id %>" class="video-link">
 			  <div class="">
