@@ -24,15 +24,24 @@ module.exports =
           filtered_videos = _.where videos, (video) ->
             video.season == season
 
-        res.view
-          URI: URI
-          season: season
-          series: series
-          videos: filtered_videos
-          season_numbers: season_numbers
-          filter_options: options
-          sort: req.query?.sort || 'latest'
+        render = (opts = {}) ->
+          render_options =
+            URI: URI
+            last_watched_video: null
+            season: season
+            series: series
+            videos: filtered_videos
+            season_numbers: season_numbers
+            filter_options: options
+            sort: req.query?.sort || 'latest'
 
+          res.view _.merge(render_options, opts)
+
+        if series.last_watched_id
+          Video.findOne({id: series.last_watched_id}).done (err, last_watched_video) ->
+            render({last_watched_video: last_watched_video})
+        else
+          render()
 
       if req.query?.sort == 'latest'
         Video.find(options)

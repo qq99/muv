@@ -1,4 +1,4 @@
-<div id="series" style="background:url(http://thetvdb.com/banners/<%= series.series_metadata.fanart %>); background-size: cover;">
+<div id="series">
 	<div class="series-information">
 		<h1 class="series-name">
 			<a href="/series/list" class="back"><i class="fa fa-chevron-left"></i></a> <%= series.series_metadata.SeriesName %>
@@ -44,39 +44,48 @@
 		</div>
 	</div>
 	<div class="video-list">
-		<% _.each(videos, function (video) { %>
+		<div class="series-featured-image" style="background:url(http://thetvdb.com/banners/<%= series.series_metadata.fanart %>); background-size: cover;"></div>
+		<% if (last_watched_video) { %>
+		<div class="featured-episode">
 			<a class="video <% if (video.thumbnails && video.thumbnails.length > 1) {%> has-thumbnails<% } %>" data-id="<%= video.id %>" href="/videos/watch/<%= video.id %>" class="video-link">
-				<div class="video-tile">
-					<div class="thumbnail-area">
-						<div class="thumbnails">
-							<% _.each(video.thumbnails, function (thumb, i) { %>
-								<img class="video-thumbnail <% if (i>0) { %>hidden<% } %>" src="/videos/thumb/<%= thumb %>" alt="">
-							<% }); %>
-						</div>
-						<% if (video.duration) { %>
-							<div class="duration">
-								<% if (video.duration.hours > 0) { %>
-								<span class="hours"><%= Video.leftPad(video.duration.hours, 2) %>:</span>
-								<% } %><span class="minutes"><%= Video.leftPad(video.duration.minutes, 2) %></span>:<span class="seconds"><%= Video.leftPad(video.duration.seconds, 2) %></span>
-							</div>
-						<% } %>
-						<% if (video.left_off_at) { %>
-							<div class="watch-progress">
-								<span class="watched-bar" title="<%= video.left_off_at %> seconds of <%= Video.durationInSeconds(video) %> total seconds" style="width: <%= 100*video.left_off_at / Video.durationInSeconds(video) %>%"></span>
-							</div>
-						<% } %>
-					</div>
-					<% if (video.episode_metadata) { %>
-						<h3 class="video-title"><%= video.episode_metadata.EpisodeName %> - S<%= video.season %>E<%= video.episode %></h3>
-						<p class="video-overview"><%= video.episode_metadata.Overview %></p>
-					<% } else { %>
-						<h3 class="video-title">No title available</h3>
-						<span><%= video.raw_file_path %></span>
-					<% } %>
-					<span class="hide"><%= video.raw_file_path %></span>
-					<div class="clearfix"></div>
-				</div>
+			  <div class="">
+			    <div class="thumbnail-area">
+			      <div class="thumbnails">
+			        <% _.each(video.thumbnails, function (thumb, i) { %>
+			          <img class="video-thumbnail <% if (i>0) { %>hidden<% } %>" src="/videos/thumb/<%= thumb %>" alt="">
+			        <% }); %>
+			      </div>
+			      <% if (video.duration) { %>
+			        <div class="duration">
+			          <% if (video.duration.hours > 0) { %>
+			          <span class="hours"><%= Video.leftPad(video.duration.hours, 2) %>:</span>
+			          <% } %><span class="minutes"><%= Video.leftPad(video.duration.minutes, 2) %></span>:<span class="seconds"><%= Video.leftPad(video.duration.seconds, 2) %></span>
+			        </div>
+			      <% } %>
+			      <% if (video.left_off_at) { %>
+			        <div class="watch-progress">
+			          <span class="watched-bar" title="<%= video.left_off_at %> seconds of <%= Video.durationInSeconds(video) %> total seconds" style="width: <%= 100*video.left_off_at / Video.durationInSeconds(video) %>%"></span>
+			        </div>
+			      <% } %>
+			    </div>
+			    <div class="description-area">
+				    <% if (video.episode_metadata) { %>
+				      <h3 class="video-title"><%= video.episode_metadata.EpisodeName %> - S<%= video.season %>E<%= video.episode %></h3>
+				      <p class="video-overview"><%= video.episode_metadata.Overview %></p>
+				    <% } else { %>
+				      <h3 class="video-title">No title available</h3>
+				      <span><%= video.raw_file_path %></span>
+				    <% } %>
+				    <span class="hide"><%= video.raw_file_path %></span>
+			  	</div>
+			  </div>
 			</a>
-		<% }); %>
+		</div>
+		<% } %>
+		<div class="video-list-container">
+			<% _.each(videos, function (video) { %>
+				<% include video_tile.ejs %>
+			<% }); %>
+		</div>
 	</div>
 </div>

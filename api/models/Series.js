@@ -15,7 +15,8 @@ module.exports = {
   		unique: true
   	},
   	series_metadata: 'json',
-    isFavourite: 'boolean'
+    isFavourite: 'boolean',
+    last_watched_id: 'integer'
   },
 
   findOrCreate: function (title, attributes, callback) {

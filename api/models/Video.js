@@ -97,6 +97,7 @@ module.exports = {
   		unique: true
   	},
   	left_off_at: 'integer',
+    series_id: 'integer',
   	series_metadata: 'json',
   	episode_metadata: 'json',
   	thumbnails: 'json',
@@ -242,10 +243,10 @@ module.exports = {
 	  			console.log("Requesting: ", "http://thetvdb.com/api/"+ TVDB_KEY +"/series/"+ result.Data.Series[0].seriesid[0] +"/all/")
 					request("http://thetvdb.com/api/"+ TVDB_KEY +"/series/"+ result.Data.Series[0].seriesid[0] +"/all/", function (err, response, body) {
 						if (err) { callback("Unable to fetch detailed series data"); return; }
-						parseXML(body, {trim: true, explicitArray: false}, function(err, result) {
+						parseXML(body, {trim: true, explicitArray: false}, function(err, episode_metadata) {
 							if (err) { callback("Unable to parse XML result: " + err, null); return; }
 
-							var series = result.Data.Series;
+							var series = episode_metadata.Data.Series;
 							// split actors into array:
 							if (series.Actors) {
 								series.Actors = splitOnPipe(series.Actors);
@@ -254,34 +255,36 @@ module.exports = {
 								series.Genre = splitOnPipe(series.Genre);
 							}
 
-							series_meta = {
-								series_metadata: series
-							};
 							Series.findOrCreate(video_title, {
 								title: video_title,
 								series_metadata: series
-							}, function(err, result) {
+							}, function(err, resulting_series) {
 								if (err) throw err;
-							});
 
-							Video.update({title: video_title}, series_meta, function (err, updated) {
-								if (err) { callback("Unable to persist series metadata"); return; }
+                Video.update({title: video_title}, {
+                  series_metadata: series,
+                  series_id: resulting_series.id
+                }, function (err, updated) {
+                  if (err) { callback("Unable to persist series metadata"); return; }
 
-								// update each individual episode now
-								async.map(result.Data.Episode, function (episode, cb) {
-									var episode_meta = {
-										episode_metadata: episode
-									};
+                  // update each individual episode now
+                  async.map(episode_metadata.Data.Episode, function (episode, cb) {
+                    Video.update({
+                      title: video_title,
+                      season: episode.SeasonNumber,
+                      episode: episode.EpisodeNumber
+                    }, {
+                      episode_metadata: episode
+                    }, function (err, updated) {
+                      if (err) { callback("Unable to persist episode metadata"); return; }
+                      cb(null, updated);
+                    });
+                  }, function (err, results) {
+                    if (err) { callback("Unable to persist all episode metadata"); return; }
+                    callback(null, results);
+                  });
 
-									Video.update({title: video_title, season: episode.SeasonNumber, episode: episode.EpisodeNumber}, episode_meta, function (err, updated) {
-										if (err) { callback("Unable to persist episode metadata"); return; }
-										cb(null, updated);
-									});
-								}, function (err, results) {
-									if (err) { callback("Unable to persist all episode metadata"); return; }
-									callback(null, results);
-								});
-
+                });
 							});
 						});
 					});

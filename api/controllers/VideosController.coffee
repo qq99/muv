@@ -123,12 +123,17 @@ module.exports =
     Video.findOne(req.param('id')).done (err, video) ->
       return res.send(err, 500) if err
 
+      Series.update {id: video.series_id},
+        {last_watched_id: video.id}, (err, series) ->
+          console.log(err) if err
+
       return res.view
         video: video
 
   generate: (req, res) ->
 
-    source = path.resolve('/TV') # TODO: use multiple folders, user supplied and configurable, etc
+
+    source = path.resolve('/media/sf_TV') # TODO: use multiple folders, user supplied and configurable, etc
     titles = []
 
     recursive source, (err, files) ->
@@ -140,7 +145,7 @@ module.exports =
 
       testFiles = files #.slice(0,20) # a smaller subset for testing
 
-      async.mapLimit testFiles, 500, (fileName, cb) ->
+      async.map testFiles, (fileName, cb) ->
         Video.findOrCreate fileName, (err, result) ->
           res.send(err, 500) if err
           titles.push(result.title)
