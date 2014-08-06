@@ -102,6 +102,7 @@ module.exports = {
   },
 
   guessit: function (raw_file_path) {
+    // see https://github.com/midgetspy/Sick-Beard/blob/development/sickbeard/name_parser/regexes.py
     var scene = /([\w\._\s]*)S(\d+)[\s-_\.]?E(\d+)/i; // e.,g "Adventure.Time.S05E44.HDTV.x264-QCF.mp4"
     var re = /([\w\._\s]*)(?:.*)(\d+)x(?:.*)(\d+)/i; // e.,g "Adventure Time - 5x09 - All Your Fault.mkv"
 
