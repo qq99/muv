@@ -45,6 +45,70 @@ describe 'Video (model)', ->
       assert.equal 1, guessed['season']
       assert.equal 8, guessed['episode']
 
+    # https://github.com/midgetspy/Sick-Beard/blob/development/sickbeard/name_parser/regexes.py
+    describe 'SickBeard format: standard', ->
+
+      it 'Show.Name.S01E02.Source.Quality.Etc-Group', ->
+        guessed = Video.guessit("Show.Name.S01E02.Source.Quality.Etc-Group.mp4")
+        assert.equal 'Show Name', guessed['title']
+        assert.equal 1, guessed['season']
+        assert.equal 2, guessed['episode']
+
+      it 'Show Name - S01E02 - My Ep Name', ->
+        guessed = Video.guessit("Show Name - S01E02 - My Ep Name.mp4")
+        assert.equal 'Show Name', guessed['title']
+        assert.equal 1, guessed['season']
+        assert.equal 2, guessed['episode']
+
+      it 'Show.Name.S01.E03.My.Ep.Name', ->
+        guessed = Video.guessit("Show.Name.S01.E03.My.Ep.Name.mp4")
+        assert.equal 'Show Name', guessed['title']
+        assert.equal 1, guessed['season']
+        assert.equal 3, guessed['episode']
+
+      it 'Show.Name.S01.E03.My.Ep.Name', ->
+        guessed = Video.guessit("Show.Name.S01E02E03.Source.Quality.Etc-Group.mp4")
+        assert.equal 'Show Name', guessed['title']
+        assert.equal 1, guessed['season']
+        assert.equal 2, guessed['episode']
+
+      it 'Show Name - S01E02-03 - My Ep Name', ->
+        guessed = Video.guessit("Show.Name.S01E02E03.Source.Quality.Etc-Group.mp4")
+        assert.equal 'Show Name', guessed['title']
+        assert.equal 1, guessed['season']
+        assert.equal 2, guessed['episode']
+
+      it 'Show.Name.S01.E02.E03', ->
+        guessed = Video.guessit("Show.Name.S01.E02.E03.mp4")
+        assert.equal 'Show Name', guessed['title']
+        assert.equal 1, guessed['season']
+        assert.equal 2, guessed['episode']
+
+    describe 'SickBeard format: fov', ->
+      it 'Show_Name.1x02.Source_Quality_Etc-Group', ->
+        guessed = Video.guessit("Show_Name.1x02.Source_Quality_Etc-Group.mp4")
+        assert.equal 'Show Name', guessed['title']
+        assert.equal 1, guessed['season']
+        assert.equal 2, guessed['episode']
+
+      it 'Show Name - 1x02 - My Ep Name', ->
+        guessed = Video.guessit("Show Name - 1x02 - My Ep Name.mp4")
+        assert.equal 'Show Name', guessed['title']
+        assert.equal 1, guessed['season']
+        assert.equal 2, guessed['episode']
+
+      it 'Show_Name.1x02x03x04.Source_Quality_Etc-Group', ->
+        guessed = Video.guessit("Show_Name.1x02x03x04.Source_Quality_Etc-Group.mp4")
+        assert.equal 'Show Name', guessed['title']
+        assert.equal 1, guessed['season']
+        assert.equal 2, guessed['episode']
+
+      it 'Show Name - 1x02-03-04 - My Ep Name', ->
+        guessed = Video.guessit("Show Name - 1x02-03-04 - My Ep Name.mp4")
+        assert.equal 'Show Name', guessed['title']
+        assert.equal 1, guessed['season']
+        assert.equal 2, guessed['episode']
+
   describe 'updateDuration', ->
     it 'gets the duration correctly from a file', (done) ->
       video =
