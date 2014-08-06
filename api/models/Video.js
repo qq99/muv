@@ -27,8 +27,6 @@ var _ = require('lodash'),
     parseXML = require('xml2js').parseString,
 		request = require('request');
 
-var THUMB_DIR = process.cwd() + '/files/thumbs/';
-
 var grab_duration_string = function(raw_file_path, cb) {
 	var command = "avprobe " + bash.escape(raw_file_path) + " 2>&1 | grep -Eo 'Duration: [0-9:.]*' | cut -c 11-";
 	console.log("Running", command);
@@ -52,6 +50,8 @@ var splitOnPipe = function(str) {
 };
 
 module.exports = {
+
+  THUMB_DIR: process.cwd() + '/files/thumbs/',
 
   attributes: {
   	title: 'string',
@@ -83,7 +83,7 @@ module.exports = {
   afterCreate: function(video, cb) {
     var at = 2*60;
     var name = uuid.v4() + ".jpg";
-    var output = path.join(THUMB_DIR, name);
+    var output = path.join(Video.THUMB_DIR, name);
     thumb = Video.createThumbnail(video, output, at);
     thumb.done(function() {
       Video.update({
@@ -104,14 +104,15 @@ module.exports = {
   guessit: function (raw_file_path) {
     // see https://github.com/midgetspy/Sick-Beard/blob/development/sickbeard/name_parser/regexes.py
     var scene = /([\w\._\s]*)S(\d+)[\s-_\.]?E(\d+)/i; // e.,g "Adventure.Time.S05E44.HDTV.x264-QCF.mp4"
-    var re = /([\w\._\s]*)(?:.*)(\d+)x(?:.*)(\d+)/i; // e.,g "Adventure Time - 5x09 - All Your Fault.mkv"
+    var re = /([\w\._\(\)\d\s]*)(?:.*)(\d+)x(?:.*)(\d+)/i; // e.,g "Adventure Time - 5x09 - All Your Fault.mkv"
 
     var fileName = raw_file_path.split("/").splice(-1)[0];
     var parsed = {};
 
-    var matches = scene.exec(fileName);
+    var fileNameWithoutExtension = fileName.substring(0, fileName.lastIndexOf("."));
+    var matches = scene.exec(fileNameWithoutExtension);
     if (!matches || matches.length !== 4) {
-      matches = re.exec(fileName);
+      matches = re.exec(fileNameWithoutExtension);
     }
 
     if (matches) {
@@ -158,7 +159,7 @@ module.exports = {
   	var filenames = [];
   	for (var i = 1; i < nThumbnails; i++) {
   		var name = uuid.v4() + ".jpg";
-  		var output = path.join(THUMB_DIR, name);
+  		var output = path.join(Video.THUMB_DIR, name);
   		var at = parseInt(duration * (i / nThumbnails));
   		tasks.push(Video.createThumbnail(video, output, at));
   		filenames.push(name);
@@ -181,14 +182,18 @@ module.exports = {
     });
   },
 
-  createThumbnail: function(video, outputFilename, nSeconds, cb) {
+  createThumbnail: function(video, outputFilename, nSeconds) {
     var dfrd = Q.defer();
     var path = bash.escape(video.raw_file_path);
   	var command = "avconv -ss "+ nSeconds +" -i "+ path +" -qscale 1 -vsync 1 -vframes 1 -y " + outputFilename;
 		console.log("Running command", command);
+
 		exec(command, function (err, stdout, stderr) {
-      console.log(err, stdout, stderr);
-      dfrd.resolve();
+      if (err) {
+        dfrd.reject(err, stdout, stderr);
+      } else {
+        dfrd.resolve();
+      }
     });
     return dfrd.promise;
   },
