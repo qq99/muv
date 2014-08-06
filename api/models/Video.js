@@ -51,38 +51,6 @@ var splitOnPipe = function(str) {
 	return _.uniq(_.compact(str.split("|")));
 };
 
-var guessit = function (raw_file_path) {
-
-	var scene = /([\w\._\s]*)S(\d+)[\s-_\.]?E(\d+)/i; // e.,g "Adventure.Time.S05E44.HDTV.x264-QCF.mp4"
-	var re = /([\w\._\s]*)(?:.*)(\d+)x(?:.*)(\d+)/i; // e.,g "Adventure Time - 5x09 - All Your Fault.mkv"
-
-	var fileName = raw_file_path.split("/").splice(-1)[0];
-	var parsed = {};
-
-	var matches = scene.exec(fileName);
-	if (!matches || matches.length !== 4) {
-		matches = re.exec(fileName);
-	}
-
-
-
-	if (matches) {
-	  if (matches[1]) {
-	    parsed['title'] = titleize(matches[1].replace(/[-_\.]/g, ' ').trim());
-	  } else {
-	    parsed['title'] = "Unknown";
-	  }
-	  if (matches[2]) {
-	    parsed['season'] = matches[2];
-	  }
-	  if (matches[3]) {
-	    parsed['episode'] = matches[3];
-	  }
-	}
-
-	return parsed;
-};
-
 module.exports = {
 
   attributes: {
@@ -105,7 +73,7 @@ module.exports = {
   },
 
   beforeCreate: function(values, next) {
-  	guessedValues = guessit(values.raw_file_path);
+  	guessedValues = Video.guessit(values.raw_file_path);
   	_.merge(values, guessedValues);
   	Video.updateDuration(values, function(valuesWithDuration) {
 	  	next();
@@ -131,6 +99,35 @@ module.exports = {
         }
       });
     });
+  },
+
+  guessit: function (raw_file_path) {
+    var scene = /([\w\._\s]*)S(\d+)[\s-_\.]?E(\d+)/i; // e.,g "Adventure.Time.S05E44.HDTV.x264-QCF.mp4"
+    var re = /([\w\._\s]*)(?:.*)(\d+)x(?:.*)(\d+)/i; // e.,g "Adventure Time - 5x09 - All Your Fault.mkv"
+
+    var fileName = raw_file_path.split("/").splice(-1)[0];
+    var parsed = {};
+
+    var matches = scene.exec(fileName);
+    if (!matches || matches.length !== 4) {
+      matches = re.exec(fileName);
+    }
+
+    if (matches) {
+      if (matches[1]) {
+        parsed['title'] = titleize(matches[1].replace(/[-_\.]/g, ' ').trim());
+      } else {
+        parsed['title'] = "Unknown";
+      }
+      if (matches[2]) {
+        parsed['season'] = parseInt(matches[2], 10);
+      }
+      if (matches[3]) {
+        parsed['episode'] = parseInt(matches[3], 10);
+      }
+    }
+
+    return parsed;
   },
 
   updateDuration: function (values, cb) {
