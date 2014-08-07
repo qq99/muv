@@ -45,6 +45,12 @@ describe 'Video (model)', ->
       assert.equal 1, guessed['season']
       assert.equal 8, guessed['episode']
 
+    it 'works with format Archer (2009) - 1x10 - Dial M for Mother.mp4', ->
+      guessed = Video.guessit("Archer (2009) - 1x10 - Dial M for Mother.mp4")
+      assert.equal 'Archer (2009)', guessed['title']
+      assert.equal 1, guessed['season']
+      assert.equal 10, guessed['episode']
+
     # https://github.com/midgetspy/Sick-Beard/blob/development/sickbeard/name_parser/regexes.py
     describe 'SickBeard format: standard', ->
 
