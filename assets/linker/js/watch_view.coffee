@@ -1,6 +1,7 @@
 $document = $(document)
 $document.on "ready", ->
 	$video = $("video").first()
+	video = $video[0]
 	videoId = $video.attr("id")
 	url = "/videos/setLeftOffAt/" + videoId
 	last_time = parseInt($video.data("resume-from"), 10)
@@ -20,8 +21,23 @@ $document.on "ready", ->
 			$(".meta").addClass("hidden");
 		, ms
 
+	showMeta = ->
+		$(".meta").removeClass("hidden")
+		hideMeta(8000)
+
 	hideMeta()
 
-	$document.on "keydown", ->
-		$(".meta").removeClass("hidden");
-		hideMeta(8000)
+	$document.on "keydown", (ev) ->
+		console.log ev.keyCode
+		switch ev.keyCode
+			when 32 # space
+				if video.paused
+					video.play()
+				else
+					video.pause()
+
+	$document.on "mousemove keydown", ->
+		showMeta()
+		return
+
+	return
