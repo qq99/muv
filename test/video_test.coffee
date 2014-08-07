@@ -122,40 +122,78 @@ describe 'Video (model)', ->
         done()
 
   describe 'thumbnails', ->
-    it 'has a property that represents where it will store files created', ->
-      assert.equal path.join(process.cwd(), '/files/thumbs/'), Video.THUMB_DIR
-
-    it 'createThumbnail can create a thumbnail of a video at a specified time', (done) ->
-      video =
+    before ->
+      @outputFolder = path.join(process.cwd(), "./test/files/")
+      @outputJpg = path.join(@outputFolder, "thumb.jpg")
+      @bigBuckBunny =
         raw_file_path: path.join(process.cwd(), "./test/files/BigBuckBunny_320x180.mp4")
         duration:
           hours: 0
           minutes: 9
           seconds: 56.45
 
-      output = path.join(process.cwd(), "./test/files/thumb.jpg")
+      @cleanScratchFolder = ->
+        for file in fs.readdirSync(@outputFolder)
+          if file.indexOf(".jpg") >= 0
+            fs.unlinkSync path.join(@outputFolder, file)
 
-      deferred = Video.createThumbnail video, output, 10
+    afterEach ->
+      @cleanScratchFolder()
 
-      deferred.done ->
-        if fs.existsSync(output)
-          fs.unlinkSync(output)
+    it 'has a property that represents where it will store files created', ->
+      assert.equal path.join(process.cwd(), '/files/thumbs/'), Video.THUMB_DIR
+
+    it 'createThumbnail can create a thumbnail of a video at a specified time', (done) ->
+      deferred = Video.createThumbnail @bigBuckBunny, @outputJpg, 10
+
+      deferred.done =>
+        if fs.existsSync(@outputJpg)
+          fs.unlinkSync(@outputJpg)
           done()
         else
-          throw "File did not exist"
+          throw "createThumbnail did not output a thumb.jpg"
 
     it 'createThumbnail will reject its promise if it fails', (done) ->
-        video =
-          raw_file_path: path.join(process.cwd(), "./test/files/does.not.exist.mp4")
-          duration:
-            hours: 0
-            minutes: 9
-            seconds: 56.45
+      nonexistentFile = path.join(process.cwd(), "does.not.exist.mp4")
+      deferred = Video.createThumbnail {raw_file_path: nonexistentFile}, @outputJpg, 10
 
-        output = path.join(process.cwd(), "./test/files/thumb.jpg")
+      deferred.fail ->
+        done()
 
-        deferred = Video.createThumbnail video, output, 10
+    it 'getThumbnails will create N thumbnails for a video', (done) ->
 
-        deferred.fail (err, stdout, stderr) ->
+      oldFolder = Video.THUMB_DIR
+      Video.THUMB_DIR = @outputFolder
+
+      deferred = Video.getThumbnails @bigBuckBunny, 5, (err, result) =>
+        Video.THUMB_DIR = oldFolder
+        if err
+          throw "Error"
+        else
+          jpgs = for file in fs.readdirSync(@outputFolder)
+            file.indexOf(".jpg") >= 0
+          assert.equal 5, jpgs.length
           done()
 
+  describe 'durationInSeconds', ->
+    it 'will convert a duration obj into seconds', ->
+      video =
+        duration:
+          hours: 0
+          minutes: 1
+          seconds: 0
+
+      seconds = Video.durationInSeconds(video)
+
+      assert.equal 60, seconds
+
+    it 'works', ->
+      video =
+        duration:
+          hours: 1
+          minutes: 2
+          seconds: 3
+
+      seconds = Video.durationInSeconds(video)
+
+      assert.equal 3723, seconds

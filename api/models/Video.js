@@ -29,7 +29,7 @@ var _ = require('lodash'),
 
 var grab_duration_string = function(raw_file_path, cb) {
 	var command = "avprobe " + bash.escape(raw_file_path) + " 2>&1 | grep -Eo 'Duration: [0-9:.]*' | cut -c 11-";
-	console.log("Running", command);
+	sails.log.info("grab_duration_string: running: ", command);
 	exec(command, function (err, stdout, stderr) {
 		if (err) { cb("Error grabbing duration", null); }
 		else {
@@ -166,7 +166,8 @@ module.exports = {
   	}
 
     Q.allSettled(tasks).then(function () {
-      console.log("Thumbnail creation finished for video", video.raw_file_path);
+      sails.log.info("getThumbnails: thumbnail creation finished for ", video.raw_file_path);
+
       Video.update({
         id: video.id
       }, {
@@ -186,7 +187,7 @@ module.exports = {
     var dfrd = Q.defer();
     var path = bash.escape(video.raw_file_path);
   	var command = "avconv -ss "+ nSeconds +" -i "+ path +" -qscale 1 -vsync 1 -vframes 1 -y " + outputFilename;
-		console.log("Running command", command);
+		sails.log.info("createThumbnail: running command", command);
 
 		exec(command, function (err, stdout, stderr) {
       if (err) {
@@ -235,7 +236,7 @@ module.exports = {
 
   // updates metadata on all Videos that share the same title
   updateMetadata: function (video_title, callback) {
-  	console.log("Requesting: ", "http://thetvdb.com/api/GetSeries.php?seriesname=" + video_title)
+  	sails.log.info("udpateMetadata: requesting: ", "http://thetvdb.com/api/GetSeries.php?seriesname=" + video_title)
 		request("http://thetvdb.com/api/GetSeries.php?seriesname=" + video_title, function (err, response, body) {
 			if (err) { callback("Unable to contact thetvdb", null); return; }
 
@@ -243,7 +244,7 @@ module.exports = {
 			  if (err) { callback("Unable to parse XML result: " + err, null); return; }
 
 	  		if (result.Data && result.Data.Series) {
-	  			console.log("Requesting: ", "http://thetvdb.com/api/"+ TVDB_KEY +"/series/"+ result.Data.Series[0].seriesid[0] +"/all/")
+	  			sails.log.info("updateMetadata: requesting: ", "http://thetvdb.com/api/"+ TVDB_KEY +"/series/"+ result.Data.Series[0].seriesid[0] +"/all/")
 					request("http://thetvdb.com/api/"+ TVDB_KEY +"/series/"+ result.Data.Series[0].seriesid[0] +"/all/", function (err, response, body) {
 						if (err) { callback("Unable to fetch detailed series data"); return; }
 						parseXML(body, {trim: true, explicitArray: false}, function(err, episode_metadata) {
