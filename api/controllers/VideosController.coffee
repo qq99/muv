@@ -52,13 +52,12 @@ module.exports =
 
   setLeftOffAt: (req, res) ->
 
-    Video.update({id: req.params.id}, {
-      left_off_at: req.body.left_off_at
-    }).done (err, videos) ->
+    Video.update {id: req.params.id},
+      {left_off_at: req.body.left_off_at}
+    .done (err, videos) ->
       return res.send(err, 500) if err
       res.json
-        status: 'ok',
-        debug: videos[0]
+        status: 'ok'
 
   stream: (req, res) ->
 
@@ -125,7 +124,7 @@ module.exports =
 
       Series.update {id: video.series_id},
         {last_watched_id: video.id}, (err, series) ->
-          console.log(err) if err
+          sails.log.error(err) if err
 
       return res.view
         video: video
