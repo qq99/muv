@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <!--
-        For demonstration purposes, the `title` is dynamically set here based on
-        your `sails.config.appName` to show that you can inject data into layouts
-        exactly the same way as with your other view templates.
-    -->
     <title><%- title %></title>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
@@ -14,14 +9,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
     <!--SCRIPTS-->
-    <script src="/linker/js/dropdown.js"></script>
-    <script src="/linker/js/series_list.js"></script>
-    <script src="/linker/js/series_view.js"></script>
-    <script src="/linker/js/watch_view.js"></script>
+    <script src="/js/dependencies/sails.io.js"></script>
+    <script src="/js/dropdown.js"></script>
+    <script src="/js/series_view.js"></script>
+    <script src="/js/watch_view.js"></script>
     <!--SCRIPTS END-->
 
     <!--STYLES-->
-    <link rel="stylesheet" href="/linker/styles/application.css">
+    <link rel="stylesheet" href="/styles/importer.css">
     <!--STYLES END-->
 
     <!--TEMPLATES-->

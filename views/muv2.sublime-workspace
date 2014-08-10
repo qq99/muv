@@ -1,0 +1,1017 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"out",
+				"outputFolder"
+			],
+			[
+				"last_",
+				"last_watched_video"
+			],
+			[
+				"last_w",
+				"last_watched_id"
+			],
+			[
+				"pos",
+				"position"
+			],
+			[
+				"outpu",
+				"outputFilename"
+			],
+			[
+				"seire",
+				"series"
+			],
+			[
+				"dur",
+				"duration"
+			],
+			[
+				"duration",
+				"durationInSeconds"
+			],
+			[
+				"cn",
+				"console"
+			],
+			[
+				"bac",
+				"background"
+			],
+			[
+				"episdoe",
+				"episode_metadata"
+			],
+			[
+				"epis",
+				"episode_meta"
+			],
+			[
+				"Epi",
+				"EpisodeNumber"
+			],
+			[
+				"ser",
+				"series"
+			],
+			[
+				"serie",
+				"seriesid"
+			],
+			[
+				"visibility",
+				"visibility_status"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "api/models/Video.js",
+			"settings":
+			{
+				"buffer_size": 9417,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "api/controllers/VideosController.coffee",
+			"settings":
+			{
+				"buffer_size": 4807,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "package.json",
+			"settings":
+			{
+				"buffer_size": 1396,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "assets/js/series_view.coffee",
+			"settings":
+			{
+				"buffer_size": 1702,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 243.0,
+		"selected_items":
+		[
+			[
+				"PACK IN",
+				"Package Control: Install Package"
+			],
+			[
+				"pack in",
+				"Package Control: Install Package"
+			],
+			[
+				"sass ",
+				"SassBeautify"
+			],
+			[
+				"pck in",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 292.0
+	},
+	"console":
+	{
+		"height": 139.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)",
+			" import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by) "
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/anthony/muv2/config/connections.js",
+		"/home/anthony/muv2/config/models.js",
+		"/home/anthony/muv2/app.js",
+		"/home/anthony/muv2/assets/styles/importer.less",
+		"/home/anthony/muv2/assets/styles/application.less",
+		"/home/anthony/muv2/api/models/Video.js",
+		"/home/anthony/muv2/api/models/Series.coffee",
+		"/home/anthony/muv2/api/controllers/SeriesController.coffee",
+		"/home/anthony/muv2/api/controllers/VideosController.coffee",
+		"/home/anthony/muv2/views/layout.ejs",
+		"/home/anthony/muv2/assets/js/dropdown.coffee",
+		"/home/anthony/muv2/assets/js/series_view.coffee",
+		"/home/anthony/muv2/assets/linker/js/watch_view.coffee",
+		"/home/anthony/muv2/assets/js/watch_view.coffee",
+		"/home/anthony/muv2/assets/linker/styles/application.less",
+		"/home/anthony/muv2/Gruntfile.js",
+		"/home/anthony/muv2/node_modules/sails/node_modules/waterline/lib/waterline/utils/getRelations.js",
+		"/home/anthony/muv/.tmp/public/linker/js/watch_view.js",
+		"/home/anthony/muv/assets/linker/js/watch_view.coffee",
+		"/home/anthony/muv/views/videos/watch.ejs",
+		"/home/anthony/muv/node_modules/node-watch/lib/watch.js",
+		"/home/anthony/muv/test/video_test.coffee",
+		"/home/anthony/muv/Gruntfile.js",
+		"/home/anthony/muv/api/models/Series.coffee",
+		"/home/anthony/muv/api/controllers/SeriesController.coffee",
+		"/home/anthony/muv/api/models/Series.js",
+		"/home/anthony/muv/node_modules/sails-mysql/node_modules/mysql/test/integration/connection/test-escape-id.js",
+		"/home/anthony/muv/views/videos/list.ejs",
+		"/home/anthony/muv/api/controllers/VideosController.coffee",
+		"/home/anthony/muv/node_modules/sails/node_modules/express/node_modules/connect/node_modules/multiparty/examples/azureblobstorage.js",
+		"/home/anthony/muv/node_modules/sails-redis/node_modules/redis/lib/to_array.js",
+		"/home/anthony/muv/node_modules/request/node_modules/tough-cookie/lib/store.js",
+		"/home/anthony/muv/node_modules/sinon/test/sinon_test.js",
+		"/home/anthony/muv/test/setup.coffee",
+		"/home/anthony/muv/assets/linker/styles/application.less",
+		"/home/anthony/muv/api/models/Video.js",
+		"/home/anthony/muv/package.json",
+		"/home/anthony/muv/testem.json",
+		"/home/anthony/muv/tests/setup.coffee",
+		"/home/anthony/muv/views/series/view.ejs",
+		"/home/anthony/muv/tests/server/video_test.coffee",
+		"/home/anthony/muv/tests/suite.coffee",
+		"/home/anthony/muv/tests/setup.js",
+		"/home/anthony/muv/node_modules/sails/node_modules/winston/node_modules/pkginfo/examples/all-properties.js",
+		"/home/anthony/muv/node_modules/sails/node_modules/grunt-contrib-less/node_modules/less/test/css/extract-and-length.css",
+		"/home/anthony/muv/views/series/list.ejs",
+		"/home/anthony/muv/views/header.ejs",
+		"/home/anthony/muv/assets/linker/js/series_view.coffee",
+		"/home/anthony/muv/views/videos/series.ejs",
+		"/home/anthony/muv/.tmp/public/linker/js/series_list.js",
+		"/home/anthony/muv/.tmp/public/linker/js/series_view.js",
+		"/home/anthony/muv/assets/linker/js/series_list.coffee",
+		"/home/anthony/muv/node_modules/sails/node_modules/grunt-contrib-less/node_modules/less/test/browser/runner-relative-urls-options.js",
+		"/home/anthony/muv/node_modules/sails-mysql/node_modules/mysql/test/integration/connection/test-send-and-receive-large-packets.js",
+		"/home/anthony/muv/node_modules/sails/node_modules/i18n/examples/express-handlebars/views/index.hbs",
+		"/home/anthony/muv/node_modules/sails/node_modules/grunt-contrib-less/node_modules/less/test/less/errors/property-asterisk-only-name.less",
+		"/home/anthony/muv/node_modules/sails/node_modules/socket.io/node_modules/socket.io-client/lib/socket.js",
+		"/home/anthony/muv/node_modules/sails/node_modules/socket.io/node_modules/socket.io-client/node_modules/active-x-obfuscator/node_modules/zeparser/LICENSE",
+		"/home/anthony/muv/node_modules/sails/testApp/api/controllers/ViewTestController.js",
+		"/home/anthony/muv/node_modules/sails/node_modules/socket.io/node_modules/socket.io-client/lib/vendor/web-socket-js/flash-src/IWebSocketLogger.as",
+		"/home/anthony/muv/node_modules/sails/node_modules/socket.io/node_modules/socket.io-client/node_modules/ws/build/Release/obj.target/validation.node",
+		"/home/anthony/muv/node_modules/sails/testApp/api/policies/sessionAuth.js",
+		"/home/anthony/muv/node_modules/uri.js/tests/search.js",
+		"/home/anthony/muv/assets/linker/js/dropdown.coffee",
+		"/home/anthony/muv/node_modules/sails/node_modules/winston/lib/winston/transports/daily-rotate-file.js",
+		"/home/anthony/muv/Dockerfile",
+		"/home/anthony/muv/views/layout.ejs",
+		"/home/anthony/muv/README.md",
+		"/home/anthony/muv/node_modules/sails/node_modules/grunt-contrib-watch/docs/watch-examples.md",
+		"/home/anthony/muv/node_modules/sails/node_modules/ejs-locals/test/fixtures/with-absolute-include.ejs",
+		"/home/anthony/muv/.tmp/public/linker/styles/application.css",
+		"/home/anthony/muv/app.js",
+		"/home/anthony/muv/node_modules/sails/testApp/api/responses/serverError.js",
+		"/home/anthony/muv/config/session.js",
+		"/home/anthony/muv/node_modules/express/lib/application.js",
+		"/home/anthony/muv/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/lib/argument_parser.js",
+		"/home/anthony/muv/api/models/Video.coffee",
+		"/home/anthony/muv/config/views.js",
+		"/home/anthony/muv/test/api/controllers/VideosController.coffee",
+		"/home/anthony/muv/test/views/series/list.ejs",
+		"/home/anthony/muv/test/api/controllers/SeriesController.coffee",
+		"/home/anthony/muv/.gitignore",
+		"/home/anthony/muv/test/.gitignore",
+		"/home/anthony/muv/test/package.json",
+		"/home/anthony/muv/test/assets/linker/js/series_list.coffee",
+		"/home/anthony/muv/test/api/models/Video.js",
+		"/home/anthony/muv/test/api/controllers/SeriesController.js",
+		"/home/anthony/muv/test/api/controllers/FooController.coffee",
+		"/home/anthony/muv/test/assets/linker/styles/application.less",
+		"/home/anthony/muv/test/api/controllers/VideosController.js",
+		"/home/anthony/muv/test/api/models/Series.js",
+		"/home/anthony/muv/test/node_modules/sails/lib/router/bind.js",
+		"/home/anthony/muv/test/config/bootstrap.js",
+		"/home/anthony/muv/test/assets/linker/js/watch_view.coffee",
+		"/home/anthony/muv/test/assets/js/app.js",
+		"/home/anthony/muv/test/assets/linker/js/series_view.coffee",
+		"/home/anthony/muv/test/views/videos/watch.ejs",
+		"/home/anthony/muv/test/views/series/view.ejs",
+		"/home/anthony/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+		"/home/anthony/muv/test/assets/linker/js/series_list.js",
+		"/home/anthony/muv/test/views/layout.ejs",
+		"/home/anthony/muv/test/node_modules/sails/testApp/api/controllers/ViewTestController.js",
+		"/home/anthony/muv/test/assets/thumbs/kicksails.txt",
+		"/home/anthony/muv/test/public/foo.txt",
+		"/home/anthony/muv/test/assets/linker/js/series_view.js",
+		"/home/anthony/muv/test/node_modules/sails/node_modules/express/node_modules/cookie/test/serialize.js",
+		"/home/anthony/muv/test/node_modules/sails/testApp/api/responses/serverError.js",
+		"/home/anthony/muv/test/node_modules/sails/node_modules/grunt-contrib-uglify/.idea/scopes/scope_settings.xml",
+		"/home/anthony/muv/test/node_modules/grunt/node_modules/underscore.string/test/strings_standalone.js",
+		"/home/anthony/muv/test/node_modules/xml2js/node_modules/sax/test/buffer-overrun.js",
+		"/home/anthony/muv/test/node_modules/sails/testApp/tasks/register/syncAssets.js",
+		"/home/anthony/muv/test/node_modules/sails/node_modules/waterline/test/unit/callbacks/afterCreate.createEach.js",
+		"/home/anthony/muv/test/node_modules/sails/testApp/api/policies/error_policy.js",
+		"/home/anthony/muv/test/config/views.js",
+		"/home/anthony/muv/test/node_modules/xml2js/node_modules/xmlbuilder/node_modules/lodash-node/compat/chaining/wrapperChain.js",
+		"/home/anthony/muv/test/.tmp/public/linker/styles/application.css",
+		"/home/anthony/muv/test/app.js",
+		"/home/anthony/muv/test/node_modules/grunt/node_modules/js-yaml/node_modules/argparse/lib/argument_parser.js",
+		"/home/anthony/muv/tvdb-api-key",
+		"/home/anthony/muv/test/assets/js/series_view.js",
+		"/home/anthony/muv/test/config/local.js",
+		"/home/anthony/muv/test/node_modules/xml2js/node_modules/xmlbuilder/node_modules/lodash-node/compat/internals/largeArraySize.js",
+		"/home/anthony/muv/test/views/series/index.ejs",
+		"/home/anthony/muv/test/node_modules/sails-redis/node_modules/redis/examples/subqueries.js",
+		"/home/anthony/muv/test/node_modules/sails-mysql/node_modules/mysql/lib/protocol/constants/server_status.js",
+		"/home/anthony/muv/test/node_modules/xml2js/node_modules/xmlbuilder/node_modules/lodash-node/modern/internals/setBindData.js",
+		"/home/anthony/muv/test/node_modules/optimist/example/default_singles.js",
+		"/home/anthony/muv/test/node_modules/xml2js/node_modules/xmlbuilder/node_modules/lodash-node/modern/functions/delay.js"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"<open files>",
+			"test/",
+			"test",
+			"src/"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"socket",
+			"createThumbnail",
+			".log.",
+			"createThumbnail:",
+			"video.createThumbnail",
+			"socket.",
+			".css",
+			"TvShow",
+			".done",
+			".ex",
+			"done",
+			".done",
+			"console.log",
+			"sails.log.error",
+			"console.log",
+			"info",
+			"console.log",
+			"output",
+			"output_folder",
+			"path.join",
+			"thumb",
+			"thumbs",
+			"# ",
+			"works with format ",
+			"createThumbnail",
+			"THUMB_DIR",
+			"path.join",
+			"updateDuration",
+			"grab_duration_string",
+			"console.log",
+			"grab_duration_string",
+			"guessit",
+			"episode",
+			"guessit",
+			"vendor",
+			"request",
+			"p {",
+			"video",
+			"last_watched_video",
+			".thumbnails",
+			"video-tile",
+			".duration",
+			"video-container",
+			"video-list",
+			"after",
+			"after {",
+			"clearfix",
+			"getThumbnails",
+			"episode_metadata",
+			"result",
+			"episode_meta",
+			"series_meta",
+			"updateMetadata",
+			"series_id",
+			"Running",
+			"series_id",
+			"findOrCreate",
+			"watch",
+			".update",
+			"series_metadata",
+			"filename",
+			"poster-button",
+			"poster-buttons",
+			".title",
+			"font-weight",
+			".poster {",
+			"mkv",
+			"extend",
+			"%",
+			"escape_spaces",
+			"process",
+			"THUMB_DIR",
+			"all-series",
+			".poster",
+			"poster-button",
+			"raw_file_path",
+			"poster-buttons",
+			"series-information",
+			"[0]",
+			"}",
+			".title",
+			"if err throw",
+			"if err",
+			"if ",
+			"}",
+			";",
+			"// ",
+			";",
+			"!==",
+			"isNumber",
+			"if (err) return res.send(err, 500);",
+			"escape_spaces",
+			".replace",
+			"escape_spaces",
+			"grab_duration_string",
+			"updateDuration",
+			"duration",
+			"durationInSeconds",
+			"createThumbnail",
+			".duration",
+			"durationInseconds",
+			"duration",
+			"durationInSeconds",
+			"thumb",
+			"/thumbs",
+			"thumbs/",
+			"thumb",
+			"thumbs",
+			"images/thumbs",
+			"%);",
+			"-300px",
+			".meta",
+			"is-favourite",
+			"generated",
+			"hidden",
+			"el",
+			"series.",
+			"metadata",
+			"poster-button",
+			"poster-buttons",
+			"border-right",
+			"poster-button",
+			"border:",
+			"border-",
+			"class=\"fa",
+			".fa",
+			"em",
+			"strong"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"sails.log.info",
+			"# ",
+			"#",
+			"return res.send(err, 500) if (err) "
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "api/models/Video.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9417,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7825,
+								7825
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3808.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "api/controllers/VideosController.coffee",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4807,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								649,
+								649
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Better CoffeeScript/CoffeeScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "package.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1396,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								163,
+								163
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "assets/js/series_view.coffee",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1702,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								295,
+								295
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Better CoffeeScript/CoffeeScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 25.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "muv2.sublime-project",
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"videocon",
+				"api/controllers/VideosController.coffee"
+			],
+			[
+				"gruntfile",
+				"Gruntfile.js"
+			],
+			[
+				"series.co",
+				"api/models/Series.coffee"
+			],
+			[
+				"watchviewj",
+				".tmp/public/linker/js/watch_view.js"
+			],
+			[
+				"videotest",
+				"test/video_test.coffee"
+			],
+			[
+				"series",
+				"api/models/Series.js"
+			],
+			[
+				"seriescon",
+				"api/controllers/SeriesController.coffee"
+			],
+			[
+				"videos",
+				"api/controllers/VideosController.coffee"
+			],
+			[
+				"watch.ejs",
+				"views/videos/watch.ejs"
+			],
+			[
+				"seirescon",
+				"api/controllers/SeriesController.coffee"
+			],
+			[
+				"videoscon",
+				"api/controllers/VideosController.coffee"
+			],
+			[
+				"video.js",
+				"api/models/Video.js"
+			],
+			[
+				"setupjs",
+				"tests/setup.js"
+			],
+			[
+				"video.s",
+				"api/models/Video.js"
+			],
+			[
+				"seriesviewejs",
+				"views/series/view.ejs"
+			],
+			[
+				"serieslistejs",
+				"views/series/list.ejs"
+			],
+			[
+				"videoslistejs",
+				"views/videos/list.ejs"
+			],
+			[
+				"appless",
+				"assets/linker/styles/application.less"
+			],
+			[
+				"series.js",
+				"api/models/Series.js"
+			],
+			[
+				"pacakge",
+				"package.json"
+			],
+			[
+				"seriesjs",
+				"api/models/Series.js"
+			],
+			[
+				"watchview",
+				"assets/linker/js/watch_view.coffee"
+			],
+			[
+				"watchviewco",
+				"assets/linker/js/watch_view.coffee"
+			],
+			[
+				"seriesview",
+				"views/series/view.ejs"
+			],
+			[
+				"watchejs",
+				"views/videos/watch.ejs"
+			],
+			[
+				"serieslist",
+				"views/series/list.ejs"
+			],
+			[
+				"header.ejs",
+				"views/header.ejs"
+			],
+			[
+				"videowatch",
+				"views/videos/watch.ejs"
+			],
+			[
+				"apples",
+				"assets/linker/styles/application.less"
+			],
+			[
+				"videoslist",
+				"views/videos/list.ejs"
+			],
+			[
+				"packagejson",
+				"package.json"
+			],
+			[
+				"applciationles",
+				"assets/linker/styles/application.less"
+			],
+			[
+				"appscs",
+				".tmp/public/linker/styles/application.css"
+			],
+			[
+				"videojs",
+				"api/models/Video.js"
+			],
+			[
+				"readme",
+				"README.md"
+			],
+			[
+				"gitig",
+				".gitignore"
+			],
+			[
+				"package",
+				"package.json"
+			],
+			[
+				"bootstrap",
+				"test/config/bootstrap.js"
+			],
+			[
+				"viewlist",
+				"test/views/series/list.ejs"
+			],
+			[
+				"dockerf",
+				"Dockerfile"
+			],
+			[
+				"videocons",
+				"test/api/controllers/VideosController.js"
+			],
+			[
+				"viewejs",
+				"test/views/series/view.ejs"
+			],
+			[
+				"watch",
+				"test/views/videos/watch.ejs"
+			],
+			[
+				"layout",
+				"test/views/layout.ejs"
+			],
+			[
+				"vviewej",
+				"test/views/series/view.ejs"
+			],
+			[
+				"appces",
+				"test/assets/linker/styles/application.less"
+			],
+			[
+				"serieslistej",
+				"test/views/series/list.ejs"
+			],
+			[
+				"videowatche",
+				"test/views/videos/watch.ejs"
+			],
+			[
+				"serilist",
+				"test/views/series/list.ejs"
+			],
+			[
+				"seriesviewje",
+				"test/views/series/view.ejs"
+			],
+			[
+				"doker",
+				"Dockerfile"
+			],
+			[
+				"layoutejs",
+				"test/views/layout.ejs"
+			],
+			[
+				"tvdb",
+				"tvdb-api-key"
+			],
+			[
+				"configadapter",
+				"test/config/adapters.js"
+			],
+			[
+				"key",
+				"tvdb-api-key"
+			],
+			[
+				"local.js",
+				"test/config/local.js"
+			],
+			[
+				"configlocal",
+				"test/config/local.js"
+			],
+			[
+				"vidoe",
+				"test/api/models/Video.js"
+			],
+			[
+				"read",
+				"README.md"
+			],
+			[
+				"route",
+				"test/config/routes.js"
+			],
+			[
+				"grunt",
+				"test/Gruntfile.js"
+			],
+			[
+				"chatser",
+				"src/server/ChatServer.coffee"
+			],
+			[
+				"support",
+				"sass/support-bar.scss"
+			],
+			[
+				"userlistuser",
+				"src/client/modules/chat/templates/userListUser.html"
+			],
+			[
+				"mediallo",
+				"src/client/modules/chat/templates/mediaLog.html"
+			],
+			[
+				"clientjsco",
+				"src/server/client.js.coffee"
+			],
+			[
+				"clinetjsco",
+				"src/client/client.js.coffee"
+			],
+			[
+				"client",
+				"src/client/client.js.coffee"
+			],
+			[
+				"chatserver",
+				"src/server/ChatServer.coffee"
+			],
+			[
+				"client.js.o",
+				"src/server/client.js.coffee"
+			],
+			[
+				"combined",
+				"sass/combined.scss"
+			],
+			[
+				"main.scss",
+				"sass/main.scss"
+			],
+			[
+				"bootstrapco",
+				"src/client/bootstrap.core.js.coffee"
+			],
+			[
+				"favi",
+				"src/client/ui/Faviconizer.js.coffee"
+			],
+			[
+				"favicon",
+				"src/client/ui/Faviconizer.js.coffee"
+			],
+			[
+				"boostrapco",
+				"src/client/bootstrap.core.js.coffee"
+			],
+			[
+				"channelswi",
+				"src/client/ui/ChannelSwitcher.js.coffee"
+			],
+			[
+				"chatmess",
+				"src/client/modules/chat/templates/chatMessage.html"
+			],
+			[
+				"modif",
+				"sass/view_modifiers.scss"
+			],
+			[
+				"main.scs",
+				"sass/main.scss"
+			],
+			[
+				"chatmessageview",
+				"src/client/modules/chat/ChatMessageView.js.coffee"
+			],
+			[
+				"clientjscof",
+				"src/client/client.js.coffee"
+			],
+			[
+				"chatclient",
+				"src/client/modules/chat/client.js.coffee"
+			],
+			[
+				"chatlcientjs",
+				"src/client/modules/chat/client.js.coffee"
+			],
+			[
+				"chatclinetjsco",
+				"src/client/modules/chat/client.js.coffee"
+			],
+			[
+				"chatmessageht",
+				"src/client/modules/chat/templates/chatMessage.html"
+			],
+			[
+				"chatareviewjs",
+				"src/client/modules/chat/ChatAreaView.js.coffee"
+			],
+			[
+				"dockerfile",
+				"Dockerfile"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"",
+				"~/muv.sublime-project"
+			],
+			[
+				"muv",
+				"~/muv.sublime-project"
+			],
+			[
+				"echop",
+				"~/echoplexus.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 144.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
