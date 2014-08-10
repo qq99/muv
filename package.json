@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Netflix, but for your home",
   "scripts": {
-    "start": "node app.js",
+    "start": "PORT=8080 sails lift",
     "debug": "PORT=8080 sails lift",
     "test": "mocha"
   },
